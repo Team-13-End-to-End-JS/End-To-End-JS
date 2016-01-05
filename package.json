@@ -4,8 +4,8 @@
   "description": "Telerik academy team \"13\" presents a Node.js application for real estates",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
-	"test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
