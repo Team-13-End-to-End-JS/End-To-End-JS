@@ -1,0 +1,31 @@
+{
+  "name": "Imotikar.13",
+  "version": "13.0.0",
+  "description": "Telerik academy team \"13\" presents a Node.js application for real estates",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+	"test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-13-End-to-End-JS/End-To-End-JS.git"
+  },
+  "author": "",
+  "contributors": [
+    {
+      "name": "Peter Kanev"
+    },
+    {
+      "name": "Georgi Yonchev"
+    },
+    {
+      "name": "Adrian Bozhankov"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Team-13-End-to-End-JS/End-To-End-JS/issues"
+  },
+  "homepage": "https://github.com/Team-13-End-to-End-JS/End-To-End-JS#readme"
+}
