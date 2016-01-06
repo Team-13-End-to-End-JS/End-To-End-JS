@@ -2,14 +2,7 @@
     "use strict";
 
     let mongoose = require('mongoose');
-    let fs = require('fs');
-
-    var modelsPath = __dirname + '/../models';
-    fs.readdirSync(modelsPath).forEach(function (file) {
-        if (file.indexOf('.js') >= 0) {
-            require(modelsPath + '/' + file);
-        }
-    });
+    let Models = require('../data/models/Models');
 
     module.exports = function(config) {
         mongoose.connect(config.db);
@@ -27,6 +20,8 @@
         db.on('error', function(err){
             console.log('Database error: ' + err);
         });
+
+        Models.init();
 
         // Call potential seed methods from model objects
     };
