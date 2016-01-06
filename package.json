@@ -27,5 +27,21 @@
   "bugs": {
     "url": "https://github.com/Team-13-End-to-End-JS/End-To-End-JS/issues"
   },
-  "homepage": "https://github.com/Team-13-End-to-End-JS/End-To-End-JS#readme"
+  "homepage": "https://github.com/Team-13-End-to-End-JS/End-To-End-JS#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.0",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "jade": "^1.11.0",
+    "mongoose": "^4.3.4",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "sha1": "^1.1.1",
+    "stylus": "^0.53.0"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4"
+  }
 }
