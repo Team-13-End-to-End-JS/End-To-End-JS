@@ -1,0 +1,38 @@
+doctype
+html
+    head
+        title Imotikar Reloaded 13.0 - Real Estates
+        include styles
+
+    body(ng-app="Imotikar")
+        header.navbar.navbar-default
+            .container
+                .navbar-header
+                    a.navbar-brand(href="/") IMOTikar
+                .navbar-collapse.collapse
+                    ul.nav.navbar-nav
+                        li
+                            a(href="/") Home
+
+                    ul.nav.navbar-nav.navbar-right
+                        if(currentUser)
+                            li
+                                a(href="/profile") Hello
+                                    span#currentUsername #{currentUser.username}
+                            if(currentUser.roles.indexOf('admin') > -1)
+                                li
+                                    a(href="/users") Manage Users
+                                li
+                                    a(href="/realestates/pending") Pending Posts
+                            li
+                                a(href="/logout") Logout
+                        else
+                            li
+                                a(href="/register") Register
+                            li
+                                a(href="/login") Login
+        .container
+            if (errorMessage)
+                .alert.alert-danger #{errorMessage}
+        block main-content
+        include scripts

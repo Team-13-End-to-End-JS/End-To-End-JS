@@ -5,6 +5,22 @@
     let auth = require('../config/auth');
 
     module.exports = {
+        getRegister: function(req, res) {
+            if (req.user) {
+                res.redirect('/');
+            }
+            else {
+                res.render('account/register');
+            }
+        },
+        getLogin: function(req, res) {
+            if (req.user) {
+                res.redirect('/');
+            }
+            else {
+                res.render('account/login');
+            }
+        },
         register: function(req, res) {
             data.users
                 .create(req.body)

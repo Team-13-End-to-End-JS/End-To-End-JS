@@ -35,7 +35,8 @@
             },
             salt: String,
             hashPass: String,
-            roles: [String]
+            roles: [String],
+            posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'RealEstate' }]
         });
 
         userSchema.method({
