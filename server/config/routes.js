@@ -8,7 +8,9 @@
     router.get('/partials/:partialArea/:partialName', function(req, res) {
             res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)
         })
-        .post('/register', controllers.users.register)
+        .post('/register', function(req, res) {
+            controllers.users.register(req, res);
+        })
         .post('/login', controllers.users.login)
         .post('/logout', controllers.users.logout)
         .get('/*', function(req, res) {

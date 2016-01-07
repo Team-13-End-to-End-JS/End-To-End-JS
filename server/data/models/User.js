@@ -9,6 +9,7 @@
     module.exports.init = function() {
         let userSchema = new Schema({
             username: {
+                unique: true,
                 type: String,
                 validate: function (input) {
                     return /[0-9A-z]/.test(input);

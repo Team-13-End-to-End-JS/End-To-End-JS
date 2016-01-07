@@ -8,8 +8,8 @@
         register: function(req, res) {
             data.users
                 .create(req.body)
-                .then(function(res) {
-                    res.json(res);
+                .then(function(dbResponse) {
+                    res.json(dbResponse);
                 }, function(err) {
                     res.json(err);
                 });
@@ -26,8 +26,8 @@
 
             data.users
                 .promote(userId, role)
-                .then(function(res) {
-                    res.json(res);
+                .then(function(dbResponse) {
+                    res.json(dbResponse);
                 }, function(err) {
                     res.json(err);
                 });
@@ -38,8 +38,8 @@
 
             data.users
                 .demote(userId, role)
-                .then(function(res) {
-                    res.json(res);
+                .then(function(dbResponse) {
+                    res.json(dbResponse);
                 }, function(err) {
                     res.json(err);
                 });
@@ -49,8 +49,8 @@
 
             data.users
                 .all(options)
-                .then(function(res) {
-                    res.json(res);
+                .then(function(dbResponse) {
+                    res.json(dbResponse);
                 }, function(err) {
                     res.json(err);
                 });
