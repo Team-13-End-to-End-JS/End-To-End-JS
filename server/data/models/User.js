@@ -9,6 +9,7 @@
     module.exports.init = function() {
         let userSchema = new Schema({
             username: {
+                unique: true,
                 type: String,
                 validate: function (input) {
                     return /[0-9A-z]/.test(input);
@@ -34,7 +35,8 @@
             },
             salt: String,
             hashPass: String,
-            roles: [String]
+            roles: [String],
+            posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'RealEstate' }]
         });
 
         userSchema.method({

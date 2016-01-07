@@ -10,8 +10,8 @@
 
     require('./server/config/express')(server, config);
     require('./server/config/mongoose')(config);
-    // require('./server/config/passport')();
-    require('./server/config/routes')(server);
+    require('./server/config/passport')();
+    require('./server/routers')(server);
 
     server.listen(config.port, () => { console.log('Server running on ' + config.port) });
 }());
