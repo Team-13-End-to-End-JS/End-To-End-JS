@@ -5,7 +5,7 @@
         Schema = mongoose.Schema;
 
     module.exports.init = function() {
-        let locationSchema = new Schema({
+        let realEstateType = new Schema({
             name: {
                 type: String,
                 validate: function (input) {
@@ -13,7 +13,7 @@
                 },
                 required: true,
                 require: '{PATH} is required',
-                message: '{PATH} location should be between 1 and 20 symbols'
+                message: '{PATH} real estate type should be between 1 and 20 symbols'
             },
             realEstates: [{
                 type: mongoose.Schema.Types.ObjectId,
@@ -21,6 +21,6 @@
             }]
         });
 
-        let Location = mongoose.model('Location', locationSchema);
+        let RealEstateType = mongoose.model('RealEstateType', realEstateType);
     };
 }());
