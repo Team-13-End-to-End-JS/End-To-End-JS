@@ -1,5 +1,5 @@
 (function () {
-    "use strict";
+    'use strict';
 
     let encryption = require('../helpers/encryption.js');
     let User = require('mongoose').model('User');
@@ -44,18 +44,18 @@
         return promise;
     }
 
-    function disableUser(id) {
+    function promoteUser(userId, role) {
 
     }
 
-    function promoteUser(userId, role) {
+    function demoteUser(userId, role) {
 
     }
 
     module.exports = {
         create: createUser,
         getAll: getAll,
-        ban: disableUser,
-        promote: promoteUser
+        promote: promoteUser,
+        demote: demoteUser
     };
 }());
