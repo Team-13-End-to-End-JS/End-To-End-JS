@@ -1,11 +1,61 @@
 (function () {
     "use strict";
 
+    let encryption = require('../helpers/encryption.js');
     let User = require('mongoose').model('User');
 
+    function createUser(user) {
+        let salt = encryption.generateSalt();
+        let newUser = {
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            salt: salt,
+            hashPass: encryption.generateHashedPassword(salt, user.password),
+            roles: user.roles || ['regular']
+        };
+
+        let promise = new Promise(function(resolve, reject) {
+            User.create(newUser, function(err, createdUser) {
+                if (err) {
+                    return reject(err);
+                }
+
+                resolve(createdUser);
+            }) ;
+        });
+
+        return promise;
+    }
+
+    function getAll(options) {
+        options = options || {};
+
+        let promise = new Promise(function(resolve, reject) {
+            User.find(options, function(err, users) {
+                if (error) {
+                    return reject(error);
+                }
+
+                resolve(users);
+            });
+        });
+
+        return promise;
+    }
+
+    function disableUser(id) {
+
+    }
+
+    function promoteUser(userId, role) {
+
+    }
+
     module.exports = {
-        create: function (user, callback) {
-            User.create(user, callback);
-        }
+        create: createUser,
+        getAll: getAll,
+        ban: disableUser,
+        promote: promoteUser
     };
 }());
