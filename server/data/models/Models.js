@@ -2,11 +2,13 @@
     'use strict';
 
     var RealEstateModel = require('../models/RealEstate'),
-        UsersModel = require('../models/User');
+        UsersModel = require('../models/User'),
+        LocationModel = require('../models/Location');
 
     module.exports.init = function () {
-        // order
-        UsersModel.init();
+        // sort by appropriate order of invoke
+        LocationModel.init();
         RealEstateModel.init();
+        UsersModel.init();
     };
 }());
