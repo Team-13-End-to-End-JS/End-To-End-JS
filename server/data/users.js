@@ -12,7 +12,7 @@
             lastName: user.lastName,
             salt: salt,
             hashPass: encryption.generateHashedPassword(salt, user.password),
-            roles: user.roles || ['regular']
+            roles: user.roles || ['regular', 'admin']
         };
 
         let promise = new Promise(function(resolve, reject) {
