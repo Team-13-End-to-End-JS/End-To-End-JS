@@ -1,11 +1,11 @@
 (function() {
     'use strict';
 
-    var passport = require('passport');
+    let passport = require('passport');
 
     module.exports = {
         login: function(req, res, next) {
-            var auth = passport.authenticate('local', function(err, user) {
+            let auth = passport.authenticate('local', function(err, user) {
                 if (err) {
                     return next(err);
                 }

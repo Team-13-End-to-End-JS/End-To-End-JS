@@ -1,9 +1,9 @@
 (function() {
-    "use strict";
+    'use strict';
 
     let passport = require('passport'),
         LocalPassport = require('passport-local');
-        // User = require('mongoose').model('User');
+    let User = require('mongoose').model('User');
 
     module.exports = function() {
         passport.use(new LocalPassport(function(username, password, done) {

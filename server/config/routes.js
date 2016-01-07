@@ -1,24 +1,25 @@
 (function() {
-    "use strict";
+    'use strict';
 
-    var auth = require('./auth'),
-        controllers = require('../controllers');
+    let router = require('express').Router(),
+        auth = require('./auth'),
+        controllers = require('../controllers/index');
 
-    module.exports = function(app) {
-        app.get('/partials/:partialArea/:partialName', function(req, res) {
+    router.get('/partials/:partialArea/:partialName', function(req, res) {
             res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)
-        });
-
-        app.post('/login', auth.login);
-        app.post('/logout', auth.logout);
-
-        app.get('/*', function(req, res) {
+        })
+        .post('/register', controllers.users.register)
+        .post('/login', controllers.users.login)
+        .post('/logout', controllers.users.logout)
+        .get('/*', function(req, res) {
             res.status(404);
             res.end();
-        });
-
-        app.get('*', function(req, res) {
+        })
+        .get('*', function(req, res) {
             res.render('index', {currentUser: req.user});
         });
+
+    module.exports = function(app) {
+        app.use('/', router);
     }
 }());
