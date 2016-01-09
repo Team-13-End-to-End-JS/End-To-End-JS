@@ -5,10 +5,6 @@
     let User = require('mongoose').model('User');
 
     function create(realEstate) {
-
-        console.log('in models')
-        console.log(realEstate);
-
         let newRealEstate = {
             title: realEstate.title,
             description: realEstate.description,

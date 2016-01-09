@@ -22,5 +22,20 @@
         });
 
         let RealEstateType = mongoose.model('RealEstateType', realEstateType);
+
+        RealEstateType.find({}).exec(function(err, collection) {
+            if (err) {
+                console.log('Cannot find real estate types: ' + err);
+                return;
+            }
+
+            if (collection.length === 0) {
+                RealEstateType.create({name: '2-rooms'});
+                RealEstateType.create({name: '3-rooms'});
+                RealEstateType.create({name: 'n-rooms'});
+                RealEstateType.create({name: 'Office'});
+                RealEstateType.create({name: 'House'});
+            }
+        });
     };
 }());

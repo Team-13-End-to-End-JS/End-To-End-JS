@@ -7,9 +7,7 @@
 
     module.exports = {
         users: users,
-        realEstates: realEstates
-    };
-        users: users,
+        realEstates: realEstates,
         admin: admin
     }
 }());

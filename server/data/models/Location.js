@@ -22,5 +22,20 @@
         });
 
         let Location = mongoose.model('Location', locationSchema);
+
+        Location.find({}).exec(function(err, collection) {
+            if (err) {
+                console.log('Cannot find locations: ' + err);
+                return;
+            }
+
+            if (collection.length === 0) {
+                Location.create({name: 'Mladost'});
+                Location.create({name: 'Centar'});
+                Location.create({name: 'Lulin'});
+                Location.create({name: 'Bankya'});
+                Location.create({name: 'Lozenets'});
+            }
+        });
     };
 }());
