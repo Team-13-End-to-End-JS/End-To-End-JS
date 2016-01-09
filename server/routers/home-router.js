@@ -8,8 +8,8 @@
     router.get('/partials/:partialArea/:partialName', function(req, res) {
             res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)
         })
-        .get('/', function(res, req) {
-           req.render('index');
+        .get('/', function(req, res) {
+            res.render('index', {currentUser: req.user});
         });
 
     module.exports = function(app) {
