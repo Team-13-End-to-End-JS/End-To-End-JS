@@ -2,7 +2,8 @@
     'use strict';
 
     module.exports = function(app) {
-        require('./home-router')(app);
         require('./account-router')(app);
+        require('./admin-router')(app);
+        require('./home-router')(app);
     }
 }());
