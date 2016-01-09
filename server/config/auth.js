@@ -28,12 +28,12 @@
         },
         logout: function(req, res, next) {
             req.logout();
-            res.end();
+            res.redirect('/');
         },
         isAuthenticated: function(req, res, next) {
             if (!req.isAuthenticated()) {
                 res.status(403);
-                res.end();
+                res.render('shared/unathorized');
             }
             else {
                 next();
@@ -46,7 +46,7 @@
                 }
                 else {
                     res.status(403);
-                    res.end();
+                    res.render('shared/unathorized');
                 }
             }
         }

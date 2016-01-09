@@ -12,7 +12,7 @@
                 unique: true,
                 type: String,
                 validate: function (input) {
-                    return /[0-9A-z]/.test(input);
+                    return /[0-9A-z]{6,}/.test(input);
                 },
                 require: '{PATH} is required',
                 message: '{PATH} is not a valid username'
