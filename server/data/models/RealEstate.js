@@ -9,7 +9,7 @@
             title: {
                 type: String,
                 validate: function (input) {
-                    return (input.length > 0 && input.length < 50);
+                    return (input.length > 5 && input.length < 50);
                 },
                 required: true,
                 require: '{PATH} is required',
@@ -18,7 +18,7 @@
             description: {
                 type: String,
                 validate: function (input) {
-                    return (input.length > 0 && input.length < 500);
+                    return (input.length > 5 && input.length < 500);
                 },
                 required: true,
                 require: '{PATH} is required',
