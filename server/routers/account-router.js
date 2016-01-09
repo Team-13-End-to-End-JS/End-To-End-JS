@@ -5,9 +5,7 @@
         auth = require('../config/auth'),
         controllers = require('../controllers/index');
 
-    router.get('/partials/:partialArea/:partialName', function(req, res) {
-            res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)
-        })
+    router
         .get('/register', controllers.users.getRegister)
         .post('/register', controllers.users.register)
         .get('/login', controllers.users.getLogin)

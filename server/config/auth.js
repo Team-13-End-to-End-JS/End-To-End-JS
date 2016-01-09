@@ -11,7 +11,8 @@
                 }
 
                 if (!user) {
-                    res.send({success: false})
+                    req.session.error = 'Invalid Username or Password!';
+                    res.redirect('/login')
                 }
 
                 req.logIn(user, function(err) {
@@ -19,7 +20,7 @@
                         return next(err);
                     }
 
-                    res.send({success: true, user: user});
+                    res.redirect('/');
                 })
             });
 
