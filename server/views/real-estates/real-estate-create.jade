@@ -78,15 +78,24 @@ block main-content
                         .form-group
                             label(for="constructionType", class='col-md-2 control-label') Construction Type
                             .col-md-10
-                                input(type="text" id="constructionType" class="form-control" name="constructionType" placeholder="Construction Type" ng-model="realEstate.constructionType" required)
+                                select(id="constructionType" class="form-control" name="constructionType" ng-model="realEstate.constructionType" required)
+                                    each type in pageData.constructionTypes
+                                        option(value="#{type}")
+                                            | #{type}
                         .form-group
                             label(for="location", class='col-md-2 control-label') Location
                             .col-md-10
-                                input(type="text" id="location" class="form-control" name="location" placeholder="Location" ng-model="realEstate.location" required)
+                                select(id="location" class="form-control" name="location" ng-model="realEstate.location" required)
+                                    each loc in pageData.locations
+                                        option(value="#{loc.name}")
+                                            | #{loc.name}
                         .form-group
                             label(for="realEstateType", class='col-md-2 control-label') Real Estate Type
                             .col-md-10
-                                input(type="text" id="realEstateType" class="form-control" name="realEstateType" placeholder="Real Estate Type" ng-model="realEstate.realEstateType" required)
+                                select(id="realEstateType" class="form-control" name="realEstateType" ng-model="realEstate.realEstateType" required)
+                                    each type in pageData.realEstateTypes
+                                        option(value="#{type}")
+                                            | #{type}
                         .form-group
                             col-md-10.col-md-offset-2
                                 button(type="reset" class="btn btn-default") Cancel

@@ -8,7 +8,21 @@
             // TODO:
             // if !req.user
             // res.render(notAuthorized)
-            res.render('real-estates/real-estate-create');
+
+            data.locations.getAll()
+                .then(function (locations) {
+                    var pageData = {
+                        pageData: {
+                            locations: locations,
+                            constructionTypes: ['Brik', 'Panel', 'Other'],
+                            realEstateTypes: ['2-rooms', '3-rooms', 'Office']
+                        }
+                    };
+
+                    res.render('real-estates/real-estate-create', pageData);
+            });
+
+
         },
         create: function(req, res) {
             data.realEstates
