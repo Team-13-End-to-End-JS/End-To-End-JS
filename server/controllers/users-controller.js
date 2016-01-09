@@ -25,16 +25,17 @@
             data.users
                 .create(req.body)
                 .then(function(dbResponse) {
-                    res.json(dbResponse);
+                    res.redirect('/login');
                 }, function(err) {
-                    res.json(err);
+                    res.session.error = "A user with that name exists already!";
+                    res.render('account/register', {errors: 'Register Failed'});
                 });
         },
         login: function(req, res, next) {
-            return auth.login(req, res, next);
+            auth.login(req, res, next);
         },
         logout: function(req, res, next) {
-            return auth.logout(req, res, next);
+            auth.logout(req, res, next);
         },
         promote: function(req, res) {
             let userId = req.body.userId;

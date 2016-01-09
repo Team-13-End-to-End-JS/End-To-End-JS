@@ -11,7 +11,8 @@
                 }
 
                 if (!user) {
-                    res.send({success: false})
+                    req.session.error = 'Invalid Username or Password!';
+                    res.redirect('/login')
                 }
 
                 req.logIn(user, function(err) {
@@ -19,7 +20,7 @@
                         return next(err);
                     }
 
-                    res.send({success: true, user: user});
+                    res.redirect('/');
                 })
             });
 
@@ -27,12 +28,12 @@
         },
         logout: function(req, res, next) {
             req.logout();
-            res.end();
+            res.redirect('/');
         },
         isAuthenticated: function(req, res, next) {
             if (!req.isAuthenticated()) {
                 res.status(403);
-                res.end();
+                res.render('shared/unathorized');
             }
             else {
                 next();
@@ -45,7 +46,7 @@
                 }
                 else {
                     res.status(403);
-                    res.end();
+                    res.render('shared/unathorized');
                 }
             }
         }

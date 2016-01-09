@@ -12,6 +12,7 @@
         },
         production: {
             rootPath: rootPath,
+            db: 'mongodb://admin:imotikar1313@ds037005.mongolab.com:37005/imotikar',
             port: process.env.PORT || 3030
         }
     }

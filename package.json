@@ -7,6 +7,10 @@
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "5.2.x",
+    "npm": "3.3.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Team-13-End-to-End-JS/End-To-End-JS.git"

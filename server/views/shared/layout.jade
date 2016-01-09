@@ -13,24 +13,38 @@ html
                     ul.nav.navbar-nav
                         li
                             a(href="/") Home
-
+                        li
+                            a(href="/realestates/post") Offer
+                        li
+                            a(href="/realestates/browse") Browse
+                        li
+                            a(href="/aboutus") About Us
                     ul.nav.navbar-nav.navbar-right
                         if(currentUser)
                             li
-                                a(href="/profile") Hello
-                                    span#currentUsername #{currentUser.username}
+                                a(href="/profile") Hi,
+                                    span#currentUsername
+                                        |  #{currentUser.username}
                             if(currentUser.roles.indexOf('admin') > -1)
-                                li
-                                    a(href="/users") Manage Users
-                                li
-                                    a(href="/realestates/pending") Pending Posts
+                                li.dropdown
+                                    a.dropdown-toggle(href="javascript:;" data-toggle="dropdown") Manage
+                                        b.caret
+                                    ul.dropdown-menu
+                                        li
+                                            a(href="/admin/users") Manage Users
+                                        li
+                                            a(href="/admin/pending") Pending Posts
+                                        li
+                                            a(href="/admin/posts") Content Control
                             li
                                 a(href="/logout") Logout
                         else
                             li
                                 a(href="/register") Register
+                                    div
                             li
                                 a(href="/login") Login
+                                    div
         .container
             if (errorMessage)
                 .alert.alert-danger #{errorMessage}
