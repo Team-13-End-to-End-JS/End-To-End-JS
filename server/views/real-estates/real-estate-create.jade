@@ -9,7 +9,7 @@ block main-content
             .well
                 form(method="post", action="", class='form-horizontal' name="realEstateCreateForm")
                     fieldset
-                        legend Make an offer
+                        legend Make an offer {{offerType}}
                         .form-group
                             label(for="title", class='col-md-2 control-label') Title of the offer
                             .col-md-10
@@ -21,15 +21,38 @@ block main-content
                         .form-group
                             label(for="description", class='col-md-2 control-label') Description
                             .col-md-10
-                                input(id="description" class="form-control" type="text" name="description" placeholder="Description" ng-model="realEstate.description" required ng-minlength="5" ng-maxlength="50")
+                                textarea(id="description" rows="3" class="form-control" name="description" placeholder="Say few words about your offer..." ng-model="realEstate.description" required ng-minlength="5" ng-maxlength="500")
                                 span(ng-show="realEstateCreateForm.description.$error.minlength")
                                     | Min. length is 5 characters
                                 span(ng-show="realEstateCreateForm.description.$error.maxlength")
                                     | Max. length is 500 characters
+
                         .form-group
-                            label(for="price", class='col-md-2 control-label') Price
+                            label(class='col-md-2 control-label') Offer type
                             .col-md-10
-                                input(id="price" class="form-control" type="number" name="price" placeholder="50$ per month" ng-model="realEstate.rentPrice" required min="0")
+                                .radio.radio-primary
+                                    label For Sale
+                                        input(type="radio" name="offerType" id="offerTypeSale" value="for Sale" ng-model="offerType")
+                                        span.circle
+                                        span.check
+                                .radio.radio-primary
+                                    label For Rent
+                                        input(type="radio" name="offerType" id="offerTypeRent" value="for Rent" ng-model="offerType")
+                                        span.circle
+                                        span.check
+
+                        .form-group(ng-show="offerType === 'for Sale'")
+                            label(for="salePrice", class='col-md-2 control-label') Sale Price
+                            .col-md-10
+                                input(id="salePrice" class="form-control" type="number" name="salePrice" placeholder="$50 000" ng-model="realEstate.salePrice" min="0")
+                                span(ng-show="realEstateCreateForm.quadrature.$error.number")
+                                    | Not a valid number!
+                                span(ng-show="realEstateCreateForm.quadrature.$error.min")
+                                    | Min sale price 0
+                        .form-group(ng-show="offerType === 'for Rent'")
+                            label(for="rentPrice", class='col-md-2 control-label') Rent Price
+                            .col-md-10
+                                input(id="rentPrice" class="form-control" type="number" name="rentPrice" placeholder="50$ per month" ng-model="realEstate.rentPrice" min="0")
                                 span(ng-show="realEstateCreateForm.quadrature.$error.number")
                                     | Not a valid number!
                                 span(ng-show="realEstateCreateForm.quadrature.$error.min")

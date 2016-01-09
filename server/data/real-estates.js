@@ -14,6 +14,12 @@
             year: realEstate.year
         };
 
+        if(realEstate.salePrice !== '') {
+            newRealEstate.salePrice = +realEstate.salePrice;
+        } else {
+            newRealEstate.rentPrice = +realEstate.rentPrice;
+        }
+
         let locationDb;
         Location.findOne({name: locationName}).exec(function (err, location) {
             if (err) console.log(err);
@@ -29,7 +35,6 @@
                 }
 
                 locationDb.realEstates.push(createdRealEstate);
-                console.log(locationDb);
                 resolve(createdRealEstate);
             }) ;
         });
