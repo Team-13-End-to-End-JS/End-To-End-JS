@@ -12,6 +12,16 @@
                 }, function(err) {
                     res.json(err);
                 });
+        },
+        create: function(req, res) {
+            data.locations
+                .create(req.body)
+                .then(function(dbResponse) {
+                    res.redirect('/locations');
+                }, function(err) {
+                    res.session.error = "Cannot create location!";
+                    res.render('locations', {errors: 'Create Location Failed'});
+                });
         }
     }
 }());

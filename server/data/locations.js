@@ -3,8 +3,23 @@
 
     let Location = require('mongoose').model('Location');
 
-    function create(location, callback) {
-        Location.create(location, callback);
+    function create(location) {
+        let newLocation = {
+            name: location.name
+        };
+
+        console.log(location);
+        let promise = new Promise(function(resolve, reject) {
+            Location.create(newLocation, function(err, createdLocation) {
+                if (err) {
+                    return reject(err);
+                }
+
+                resolve(createdLocation);
+            }) ;
+        });
+
+        return promise;
     }
 
     function getAll() {
