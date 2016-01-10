@@ -22,5 +22,17 @@
         });
 
         let ConstructionType = mongoose.model('ConstructionType', constructionType);
+
+        ConstructionType.find({}).exec(function(err, collection) {
+            if (err) {
+                console.log('Cannot find construction types: ' + err);
+                return;
+            }
+
+            if (collection.length === 0) {
+                ConstructionType.create({name: 'Brik'});
+                ConstructionType.create({name: 'Panel'});
+            }
+        });
     };
 }());

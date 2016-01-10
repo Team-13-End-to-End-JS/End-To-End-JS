@@ -1,0 +1,102 @@
+extends ../shared/layout
+
+block main-content
+    .container
+        if errors
+            .panel.panel-danger
+                errors
+        .col-md-12
+            .well
+                form(method="post", action="", class='form-horizontal' name="realEstateCreateForm")
+                    fieldset
+                        legend Make an offer {{offerType}}
+                        .form-group
+                            label(for="title", class='col-md-2 control-label') Title of the offer
+                            .col-md-10
+                                input(id="title" class="form-control" type="text" name="title" placeholder="Title" ng-model="realEstate.title" required ng-minlength="5" ng-maxlength="50")
+                                span(ng-show="realEstateCreateForm.title.$error.minlength")
+                                    | Min. length is 5 characters
+                                span(ng-show="realEstateCreateForm.title.$error.maxlength")
+                                    | Max. length is 50 characters
+                        .form-group
+                            label(for="description", class='col-md-2 control-label') Description
+                            .col-md-10
+                                textarea(id="description" rows="3" class="form-control" name="description" placeholder="Say few words about your offer..." ng-model="realEstate.description" required ng-minlength="5" ng-maxlength="500")
+                                span(ng-show="realEstateCreateForm.description.$error.minlength")
+                                    | Min. length is 5 characters
+                                span(ng-show="realEstateCreateForm.description.$error.maxlength")
+                                    | Max. length is 500 characters
+
+                        .form-group
+                            label(class='col-md-2 control-label') Offer type
+                            .col-md-10
+                                .radio.radio-primary
+                                    label For Sale
+                                        input(type="radio" name="offerType" id="offerTypeSale" value="for Sale" ng-model="offerType")
+                                        span.circle
+                                        span.check
+                                .radio.radio-primary
+                                    label For Rent
+                                        input(type="radio" name="offerType" id="offerTypeRent" value="for Rent" ng-model="offerType")
+                                        span.circle
+                                        span.check
+
+                        .form-group(ng-show="offerType === 'for Sale'")
+                            label(for="salePrice", class='col-md-2 control-label') Sale Price
+                            .col-md-10
+                                input(id="salePrice" class="form-control" type="number" name="salePrice" placeholder="$50 000" ng-model="realEstate.salePrice" min="0")
+                                span(ng-show="realEstateCreateForm.quadrature.$error.number")
+                                    | Not a valid number!
+                                span(ng-show="realEstateCreateForm.quadrature.$error.min")
+                                    | Min sale price 0
+                        .form-group(ng-show="offerType === 'for Rent'")
+                            label(for="rentPrice", class='col-md-2 control-label') Rent Price
+                            .col-md-10
+                                input(id="rentPrice" class="form-control" type="number" name="rentPrice" placeholder="50$ per month" ng-model="realEstate.rentPrice" min="0")
+                                span(ng-show="realEstateCreateForm.quadrature.$error.number")
+                                    | Not a valid number!
+                                span(ng-show="realEstateCreateForm.quadrature.$error.min")
+                                    | Min price 0
+                        .form-group
+                            label(for="quadrature", class='col-md-2 control-label') Quadrature
+                            .col-md-10
+                                input(id="quadrature" class="form-control" type="number" name="quadrature" placeholder="100m2" ng-model="realEstate.quadrature" required min="0")
+                                span(ng-show="realEstateCreateForm.quadrature.$error.number")
+                                    | Not a valid number!
+                                span(ng-show="realEstateCreateForm.quadrature.$error.min")
+                                    | Min quadrature 0
+                        .form-group
+                            label(for="year", class='col-md-2 control-label') Year
+                            .col-md-10
+                                input(type="number" id="year" class="form-control" name="year" placeholder="Year" ng-model="realEstate.year" required ng-min="1800" ng-max="2500")
+                                span(ng-show="realEstateCreateForm.year.$error.number")
+                                    | Not a valid year!
+                                span(ng-show="realEstateCreateForm.year.$error.min")
+                                    | Min year 1800!
+                                span(ng-show="realEstateCreateForm.year.$error.max")
+                                    | Max year 2500!
+                        .form-group
+                            label(for="constructionType", class='col-md-2 control-label') Construction Type
+                            .col-md-10
+                                select(id="constructionType" class="form-control" name="constructionType" ng-model="realEstate.constructionType" required)
+                                    each type in pageData.constructionTypes
+                                        option(value="#{type.name}")
+                                            | #{type.name}
+                        .form-group
+                            label(for="location", class='col-md-2 control-label') Location
+                            .col-md-10
+                                select(id="location" class="form-control" name="location" ng-model="realEstate.location" required)
+                                    each loc in pageData.locations
+                                        option(value="#{loc.name}")
+                                            | #{loc.name}
+                        .form-group
+                            label(for="realEstateType", class='col-md-2 control-label') Real Estate Type
+                            .col-md-10
+                                select(id="realEstateType" class="form-control" name="realEstateType" ng-model="realEstate.realEstateType" required)
+                                    each type in pageData.realEstateTypes
+                                        option(value="#{type.name}")
+                                            | #{type.name}
+                        .form-group
+                            col-md-10.col-md-offset-2
+                                button(type="reset" class="btn btn-default") Cancel
+                                button(type="submit" class="btn btn-primary" ng-disabled="realEstateCreateForm.$invalid") Offer
