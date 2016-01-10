@@ -37,7 +37,7 @@
        let promise = new Promise(function(resolve, reject) {
            RealEstate.findById(id, function(err, realEstate) {
                 if (err) {
-                    return reject(err);
+                    reject(err);
                 }
 
                 resolve(realEstate);

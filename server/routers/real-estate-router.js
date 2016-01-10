@@ -7,7 +7,8 @@
 
     router
         .get('/realestates/post', controllers.realEstates.getCreate)
-        .post('/realestates/post', controllers.realEstates.create);
+        .post('/realestates/post', controllers.realEstates.create)
+        .get('/realestates/:id', controllers.realEstates.getDetails);
 
     module.exports = function(app) {
         app.use('/', router);

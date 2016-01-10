@@ -44,8 +44,15 @@
             });
     }
 
+    function getDetails(req, res) {
+        data.realEstates.getById(req.params.id)
+            .then(function (realEstate) {
+                res.render('real-estates/real-estate-details', {realEstate: realEstate});
+            });
+    }
     module.exports = {
         getCreate: getCreate,
-        create: create
+        create: create,
+        getDetails: getDetails
     }
 }());
