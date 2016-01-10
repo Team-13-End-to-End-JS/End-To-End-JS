@@ -9,7 +9,7 @@
             res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)
         })
         .get('/', function(req, res) {
-            res.render('index', {currentUser: req.user});
+            res.render('index');
         })
         .get('/unathorized', function(req, res) {
             res.status(403);
