@@ -1,34 +1,32 @@
 (function () {
     'use strict';
 
-    let ConstructionTypes = require('mongoose').model('ConstructionType');
+    let ConstructionType = require('mongoose').model('ConstructionType');
 
-    function create(constructionType) {
-        let newConstructionType = {
-            name: constructionType.name
-        };
-
+    function add(constructionTypeName) {
         let promise = new Promise(function(resolve, reject) {
-            ConstructionTypes.create(newConstructionType, function(err, createdConstructionType) {
-                if (err) {
+            ConstructionType.findOne({}, function(err, collection) {
+                if(err) {
                     return reject(err);
                 }
 
-                resolve(createdConstructionType);
+                collection.types.push(constructionTypeName);
+                collection.save();
+                resolve(constructionTypeName);
             }) ;
         });
 
         return promise;
     }
 
-    function getAll() {
+    function all() {
         let promise = new Promise(function(resolve, reject) {
-            ConstructionTypes.find({}, function(err, constructionTypes) {
+            ConstructionType.find({}, function(err, collection) {
                 if (err) {
                     return reject(err);
                 }
 
-                resolve(constructionTypes);
+                resolve(collection[0].types);
             });
         });
 
@@ -36,7 +34,7 @@
     }
 
     module.exports = {
-        create: create,
-        getAll: getAll
+        add: add,
+        all: all
     };
 }());

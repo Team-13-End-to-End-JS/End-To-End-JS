@@ -3,33 +3,30 @@
 
     let Location = require('mongoose').model('Location');
 
-    function create(location) {
-        let newLocation = {
-            name: location.name
-        };
-
-        console.log(location);
+    function add(locationName) {
         let promise = new Promise(function(resolve, reject) {
-            Location.create(newLocation, function(err, createdLocation) {
-                if (err) {
+            Location.findOne({}, function(err, collection) {
+                if(err) {
                     return reject(err);
                 }
 
-                resolve(createdLocation);
+                collection.names.push(locationName);
+                collection.save();
+                resolve(locationName);
             }) ;
         });
 
         return promise;
     }
 
-    function getAll() {
+    function all() {
         let promise = new Promise(function(resolve, reject) {
-            Location.find({}, function(err, locations) {
+            Location.find({}, function(err, collection) {
                 if (err) {
                     return reject(err);
                 }
 
-                resolve(locations);
+                resolve(collection[0].names);
             });
         });
 
@@ -37,7 +34,7 @@
     }
 
     module.exports = {
-        create: create,
-        getAll: getAll
+        all: all,
+        add: add
     };
 }());
