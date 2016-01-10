@@ -12,32 +12,31 @@
             pageData: {}
         };
 
-        data.constructionTypes.getAll()
-            .then(function (types) {
-                    pageData.pageData.constructionTypes= types;
+        data.constructionTypes.all()
+            .then(function (constructionTypes) {
+                    pageData.pageData.constructionTypes = constructionTypes;
                 }
             );
 
-        data.realEstateTypes.getAll()
-            .then(function (types) {
-                    pageData.pageData.realEstateTypes= types;
+        data.realEstateTypes.all()
+            .then(function (realEstateTypes) {
+                    pageData.pageData.realEstateTypes = realEstateTypes;
                 }
             );
 
-        data.locations.getAll()
+        data.locations.all()
             .then(function (locations) {
-                    pageData.pageData.locations= locations;
+                    pageData.pageData.locations = locations;
                     res.render('real-estates/real-estate-create', pageData);
                 }
             );
     }
 
     function create(req, res) {
+        console.log(req.body);
         data.realEstates
             .create(req.body)
             .then(function(dbResponse) {
-                console.log(dbResponse);
-                
                 res.redirect('/realestates/' + dbResponse['_id']);
             }, function(err) {
                 res.session.error = "Cannot create real estate offer!";

@@ -3,32 +3,30 @@
 
     let RealEstateType = require('mongoose').model('RealEstateType');
 
-    function create(realEstateType) {
-        let newRealEstateType = {
-            name: realEstateType.name
-        };
-
+    function add(realEstateTypeName) {
         let promise = new Promise(function(resolve, reject) {
-            RealEstateType.create(newRealEstateType, function(err, createdRealEstateType) {
-                if (err) {
+            RealEstateType.findOne({}, function(err, collection) {
+                if(err) {
                     return reject(err);
                 }
 
-                resolve(createdRealEstateType);
+                collection.types.push(realEstateTypeName);
+                collection.save();
+                resolve(realEstateTypeName);
             }) ;
         });
 
         return promise;
     }
 
-    function getAll() {
+    function all() {
         let promise = new Promise(function(resolve, reject) {
-            RealEstateType.find({}, function(err, realEstateTypes) {
+            RealEstateType.find({}, function(err, collection) {
                 if (err) {
                     return reject(err);
                 }
 
-                resolve(realEstateTypes);
+                resolve(collection[0].types);
             });
         });
 
@@ -36,7 +34,7 @@
     }
 
     module.exports = {
-        create: create,
-        getAll: getAll
+        add: add,
+        all: all
     };
 }());

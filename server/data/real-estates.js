@@ -3,15 +3,17 @@
 
     let RealEstate = require('mongoose').model('RealEstate');
     let User = require('mongoose').model('User');
-    let Location = require('mongoose').model('Location');
 
     function create(realEstate) {
-        let locationName = realEstate.location;
+
         let newRealEstate = {
             title: realEstate.title,
             description: realEstate.description,
-            quadrature: realEstate.quadrature,
-            year: realEstate.year
+            quadrature: +realEstate.quadrature,
+            year: +realEstate.year,
+            location: realEstate.location,
+            constructionType: realEstate.constructionType,
+            realEstateType: realEstate.realEstateType
         };
 
         if(realEstate.salePrice !== '') {
@@ -22,30 +24,31 @@
             newRealEstate.rentPrice = +realEstate.rentPrice;
         }
 
-        let locationDb;
-        Location.findOne({name: locationName}).exec(function (err, location) {
-            if (err) console.log(err);
-            else {
-                locationDb = location;
+        return RealEstate.create(newRealEstate, function(err, createdRealEstate) {
+            if (err) {
+                console.log(err);
             }
-        });
 
-        let promise = new Promise(function(resolve, reject) {
-            RealEstate.create(newRealEstate, function(err, createdRealEstate) {
+            createdRealEstate.save();
+        }) ;
+    }
+
+    function getById(id) {
+       let promise = new Promise(function(resolve, reject) {
+           RealEstate.findById(id, function(err, realEstate) {
                 if (err) {
                     return reject(err);
                 }
 
-                // cannot push. the location from database is not got yet.
-                //locationDb.realEstates.push(createdRealEstate);
-                resolve(createdRealEstate);
-            }) ;
+                resolve(realEstate);
+            });
         });
 
         return promise;
     }
 
     module.exports = {
-        create: create
+        create: create,
+        getById: getById
     };
 }());
