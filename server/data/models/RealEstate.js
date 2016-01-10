@@ -31,7 +31,7 @@
                 },
                 message: '{PATH} renting price should be a positive number'
             },
-            sellPrice: {
+            salePrice: {
                 type: Number,
                 validate: function (input) {
                     return input > 0;

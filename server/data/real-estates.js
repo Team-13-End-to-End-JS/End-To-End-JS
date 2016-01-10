@@ -16,7 +16,9 @@
 
         if(realEstate.salePrice !== '') {
             newRealEstate.salePrice = +realEstate.salePrice;
-        } else {
+        }
+
+        if(realEstate.rentPrice !== '') {
             newRealEstate.rentPrice = +realEstate.rentPrice;
         }
 
@@ -34,7 +36,8 @@
                     return reject(err);
                 }
 
-                locationDb.realEstates.push(createdRealEstate);
+                // cannot push. the location from database is not got yet.
+                //locationDb.realEstates.push(createdRealEstate);
                 resolve(createdRealEstate);
             }) ;
         });

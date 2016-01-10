@@ -8,25 +8,36 @@
         // if !req.user
         // res.render(notAuthorized)
 
+        var pageData = {
+            pageData: {}
+        };
+
+        data.constructionTypes.getAll()
+            .then(function (types) {
+                    pageData.pageData.constructionTypes= types;
+                }
+            );
+
+        data.realEstateTypes.getAll()
+            .then(function (types) {
+                    pageData.pageData.realEstateTypes= types;
+                }
+            );
+
         data.locations.getAll()
             .then(function (locations) {
-                var pageData = {
-                    pageData: {
-                        // TODO: get other types from database
-                        locations: locations,
-                        constructionTypes: ['Brik', 'Panel', 'Other'],
-                        realEstateTypes: ['2-rooms', '3-rooms', 'Office']
-                    }
-                };
-
-                res.render('real-estates/real-estate-create', pageData);
-            });
+                    pageData.pageData.locations= locations;
+                    res.render('real-estates/real-estate-create', pageData);
+                }
+            );
     }
 
     function create(req, res) {
         data.realEstates
             .create(req.body)
             .then(function(dbResponse) {
+                console.log(dbResponse);
+                
                 res.redirect('/realestates/' + dbResponse['_id']);
             }, function(err) {
                 res.session.error = "Cannot create real estate offer!";
