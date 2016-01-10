@@ -5,11 +5,13 @@
     let admin = require('./admin-controller');
     let realEstates = require('./real-estates-controller');
     let locations = require('./locations-controller');
+    let constructionTypes = require('./construction-type-controller');
 
     module.exports = {
         users: users,
         realEstates: realEstates,
         admin: admin,
-        locations: locations
+        locations: locations,
+        constructionTypes: constructionTypes
     }
 }());

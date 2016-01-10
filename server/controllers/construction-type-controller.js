@@ -4,24 +4,24 @@
     let data = require('../data/data');
 
     module.exports = {
-        all: function(req, res) {
-            data.locations
+        getAll: function(req, res) {
+            data.constructionTypes
                 .getAll()
                 .then(function(dbResponse) {
-                    res.render('real-estates/locations');
+                    res.render('real-estates/construction-types');
                     res.json(dbResponse);
                 }, function(err) {
                     res.json(err);
                 });
         },
         create: function(req, res) {
-            data.locations
+            data.constructionTypes
                 .create(req.body)
                 .then(function(dbResponse) {
-                    res.redirect('/locations');
+                    res.redirect('/constructions');
                 }, function(err) {
-                    res.session.error = "Cannot create location!";
-                    res.render('real-estates/locations', {errors: 'Create Location Failed'});
+                    res.session.error = "Cannot create contstuction type!";
+                    res.render('real-estates/construction-types', {errors: 'Create Construction Type Failed'});
                 });
         }
     }
