@@ -35,7 +35,9 @@ html
                                         li
                                             a(href="/admin/pending") Pending Posts
                                         li
-                                            a(href="/admin/posts") Content Control
+                                            a(href="/admin/posts") Posts Control
+                                        li
+                                            a(href="/admin/content") Content Control
                             li
                                 a(href="/logout") Logout
                         else
@@ -48,5 +50,6 @@ html
         .container
             if (errorMessage)
                 .alert.alert-danger #{errorMessage}
-        block main-content
+        div(style="margin: 0 auto; width: 70%")
+            block main-content
         include scripts

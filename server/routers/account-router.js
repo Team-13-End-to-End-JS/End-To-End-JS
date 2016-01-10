@@ -10,7 +10,7 @@
         .post('/register', controllers.users.register)
         .get('/login', controllers.users.getLogin)
         .post('/login', controllers.users.login)
-        .post('/logout', auth.isAuthenticated, controllers.users.logout);
+        .get('/logout', auth.isAuthenticated, controllers.users.logout);
 
     module.exports = function(app) {
         app.use('/', router);

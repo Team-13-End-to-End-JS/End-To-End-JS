@@ -5,30 +5,39 @@
     let auth = require('../config/auth');
 
     module.exports = {
+        getContentControl: function(req, res) {
+            res.render('admin/content');
+        },
         getPendingPosts: function(req, res) {
             res.render('admin/pending');
         },
         updatePendingPost: function(req, res) {
             res.status(404);
+            res.end();
         },
         getAllPosts: function(req, res) {
             res.render('admin/posts');
         },
         removePost: function(req, res) {
             res.status(404);
+            res.end();
         },
         getAllUsers: function(req, res) {
-            let options = {};
+            let pageSize = 10;
+            let page = (req.query.page != undefined && +req.query.page > 0) ? +req.query.page : 1;
 
             data.users
-                .getAll(options)
+                .getAll({})
                 .then(function(dbResponse) {
+                    let users = dbResponse.slice((page-1)*pageSize, page*pageSize);
 
-                    // TODO: remove
-                    console.log(dbResponse);
-
-                    res.render('admin/users', {users: dbResponse})
+                    res.render('admin/users', { data: {
+                        users: users,
+                        page: page
+                    }
+                    })
                 }, function(err) {
+                    console.log(err);
                     res.json(err);
                 });
         },

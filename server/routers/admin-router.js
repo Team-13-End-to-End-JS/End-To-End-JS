@@ -6,15 +6,17 @@
         controllers = require('../controllers/index');
 
     router
-        .get('/pending', auth.isInRole('admin'), controllers.admin.getPendingPosts)
-        .put('/pending/:id', auth.isInRole('admin'), controllers.admin.updatePendingPost)
-        .get('/posts', auth.isInRole('admin'), controllers.admin.getAllPosts)
-        .put('/posts/:id', auth.isInRole('admin'), controllers.admin.removePost)
-        .get('/users', auth.isInRole('admin'), controllers.admin.getAllUsers)
-        .post('/users/:id', auth.isInRole('admin'), controllers.admin.promoteUser)
-        .put('/users/:id', auth.isInRole('admin'), controllers.admin.demoteUser);
+        .get('/content', controllers.admin.getContentControl)
+        .get('/pending', controllers.admin.getPendingPosts)
+        .put('/pending/:id', controllers.admin.updatePendingPost)
+        .get('/posts', controllers.admin.getAllPosts)
+        .put('/posts/:id', controllers.admin.removePost)
+        .get('/users', controllers.admin.getAllUsers)
+        .post('/users/:id', controllers.admin.promoteUser)
+        .put('/users/:id', controllers.admin.demoteUser);
 
     module.exports = function(app) {
+        app.all('/admin/*', auth.isInRole('admin'));
         app.use('/admin', router);
     }
 }());

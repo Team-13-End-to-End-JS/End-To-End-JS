@@ -55,7 +55,8 @@
                 required: true,
                 require: '{PATH} is required',
                 message: '{PATH} year should be between 188 and 2500'
-            }
+            },
+            _user: { type: Schema.Types.ObjectId, ref: 'User' }
         });
 
         let RealEstate = mongoose.model('RealEstate', realEstateSchema);
