@@ -70,6 +70,39 @@
                     console.log(err);
                 });
         },
+        addTypeContent: function(req, res) {
+            let typeName = req.body.name;
+
+            data.realEstateTypes
+                .add(typeName)
+                .then(function(result) {
+                    res.redirect('/admin/content');
+                }, function(err) {
+                    console.log(err)
+                });
+        },
+        addConstructionContent: function(req, res) {
+            let constrName = req.body.name;
+
+            data.constructionTypes
+                .add(constrName)
+                .then(function(result) {
+                    res.redirect('/admin/content');
+                }, function(err) {
+                    console.log(err)
+                });
+        },
+        addLocationContent: function(req, res) {
+            let locName = req.body.name;
+
+            data.locations
+                .add(locName)
+                .then(function(result) {
+                    res.redirect('/admin/content');
+                }, function(err) {
+                    console.log(err)
+                });
+        },
         getPendingPosts: function(req, res) {
             res.render('admin/pending');
         },

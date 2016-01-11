@@ -10,10 +10,19 @@ block main-content
                 div.col-md-6.col-lg-6(style="line-height: 3")
                     | Real Estate Types Control
                 div.col-md-6.col-lg-6
-                    button.btn.btn-sm.btn-info.pull-right.btn-raised
+                    button.btn.btn-sm.btn-info.pull-right.btn-raised#btn-add-type
                         span.glyphicon.glyphicon-plus
         .panel-body
             ul.list-item-group
+                li.list-group-item#toggle-add-type(style="display: none")
+                    div
+                        form(method="POST", action="/admin/content/types")
+                            .form-group.row
+                                label(for="typeName", class='col-md-2 control-label') Name:
+                                .col-md-8
+                                    input(id="typeName" class="form-control" type="text" name="name" placeholder="Type" required)
+                                .col-md-2
+                                    input(type="submit" value="Add").btn.btn-success
                 each ret, index in data.realEstateTypes
                     li.list-group-item(data-estate-type=index)
                         div.row
@@ -29,10 +38,19 @@ block main-content
                 div.col-md-6.col-lg-6(style="line-height: 3")
                     | Real Estate Locations Control
                 div.col-md-6.col-lg-6
-                    button.btn.btn-sm.btn-info.pull-right.btn-raised
+                    button.btn.btn-sm.btn-info.pull-right.btn-raised#btn-add-location
                         span.glyphicon.glyphicon-plus
         .panel-body
             ul.list-item-group
+                li.list-group-item#toggle-add-location(style="display: none")
+                    div
+                        form(method="POST", action="/admin/content/locations")
+                            .form-group.row
+                                label(for="locName", class='col-md-2 control-label') Name:
+                                .col-md-8
+                                    input(id="locName" class="form-control" type="text" name="name" placeholder="Location" required)
+                                .col-md-2
+                                    input(type="submit" value="Add").btn.btn-success
                 each rel, index in data.realEstateLocations
                     li.list-group-item(data-estate-location=index)
                         div.row
@@ -48,10 +66,19 @@ block main-content
                 div.col-md-6.col-lg-6(style="line-height: 3")
                     | Real Estate Construction Types Control
                 div.col-md-6.col-lg-6
-                    button.btn.btn-sm.btn-info.pull-right.btn-raised
+                    button.btn.btn-sm.btn-info.pull-right.btn-raised#btn-add-construction
                         span.glyphicon.glyphicon-plus
         .panel-body
             ul.list-item-group
+                li.list-group-item#toggle-add-construction(style="display: none")
+                    div
+                        form(method="POST", action="/admin/content/construction")
+                            .form-group.row
+                                label(for="constrName", class='col-md-2 control-label') Name:
+                                .col-md-8
+                                    input(id="constrName" class="form-control" type="text" name="name" placeholder="Construction" required)
+                                .col-md-2
+                                    input(type="submit" value="Add").btn.btn-success
                 each rec, index in data.realEstateConstruction
                     li.list-group-item(data-estate-construction=index)
                         div.row
@@ -60,3 +87,19 @@ block main-content
                                 a.btn.btn-sm.btn-danger.pull-right.btn-raised(href='javascript:document.getElementById("form-rm-constr-' + index + '").submit()')
                                     span.glyphicon.glyphicon-trash
                                 form(method="POST", action="/admin/content/construction/" + index, id="form-rm-constr-" + index).hidden
+
+    script.
+        $(function() {
+            $('#btn-add-type').on('click', function (e) {
+                console.log("Pesho");
+                $('#toggle-add-type').toggle();
+            })
+
+            $('#btn-add-location').on('click', function (e) {
+                $('#toggle-add-location').toggle();
+            })
+
+            $('#btn-add-construction').on('click', function (e) {
+                $('#toggle-add-construction').toggle();
+            })
+        })
