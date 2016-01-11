@@ -4,10 +4,6 @@
     let data = require('../data/data');
 
     function getCreate(req, res) {
-        // TODO:
-        // if !req.user
-        // res.render(notAuthorized)
-
         var pageData = {
             pageData: {}
         };
@@ -33,11 +29,12 @@
     }
 
     function create(req, res) {
-        console.log(req.body);
+        req.body.createdOn = new Date();
+
         data.realEstates
             .create(req.body)
             .then(function(dbResponse) {
-                res.redirect('/realestates/' + dbResponse['_id']);
+                res.redirect('/realestates/details/' + dbResponse['title'] + '/' + dbResponse['_id']);
             }, function(err) {
                 res.session.error = "Cannot create real estate offer!";
                 res.render('realestates/post', {errors: 'Create Offer Failed'});
@@ -51,16 +48,92 @@
             });
     }
 
-    function all(req, res) {
-        options = res.body.options || {};
+    function getPublic(req, res) {
+        var pageData = {
+            pageData: {}
+        };
 
-        res.end();
+        data.constructionTypes.all()
+            .then(function (constructionTypes) {
+                    pageData.constructionTypes = constructionTypes;
+                }
+            );
+
+        data.realEstateTypes.all()
+            .then(function (realEstateTypes) {
+                    pageData.realEstateTypes = realEstateTypes;
+                }
+            );
+
+        data.locations.all()
+            .then(function (locations) {
+                    pageData.locations = locations;
+
+                    data.realEstates.getPublic(req.query)
+                        .then(function (dbResponse) {
+
+                            if (dbResponse.length === 0) {
+                                res.render('real-estates/real-estates-browse', {pageData: {
+                                    common: pageData
+                                }});
+                            } else {
+                                res.render('real-estates/real-estates-browse', {pageData: {
+                                    common: pageData,
+                                    realEstates: dbResponse}});
+                            }
+                        });
+                }
+            );
+    }
+
+    function postPublic(req, res) {
+        var pageData = {
+            pageData: {}
+        };
+
+        data.constructionTypes.all()
+            .then(function (constructionTypes) {
+                    pageData.constructionTypes = constructionTypes;
+                }
+            );
+
+        data.realEstateTypes.all()
+            .then(function (realEstateTypes) {
+                    pageData.realEstateTypes = realEstateTypes;
+                }
+            );
+
+        data.locations.all()
+            .then(function (locations) {
+                    pageData.locations = locations;
+
+                data.realEstates.getPublic(req.body)
+                    .then(function (dbResponse) {
+
+                        if (dbResponse.length === 0) {
+                            res.render('real-estates/real-estates-browse', {pageData: {
+                                common: pageData
+                            }});
+                        } else {
+                            res.render('real-estates/real-estates-browse', {pageData: {
+                                common: pageData,
+                                realEstates: dbResponse}});
+                        }
+                    });
+                }
+            );
+    }
+
+    function getAll(req, res) {
+
     }
 
     module.exports = {
         getCreate: getCreate,
         create: create,
         getDetails: getDetails,
-        getAll: all
+        getAll: getAll,
+        getPublic: getPublic,
+        postPublic: postPublic
     }
 }());

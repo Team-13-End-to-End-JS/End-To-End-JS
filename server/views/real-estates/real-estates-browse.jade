@@ -1,0 +1,85 @@
+extends ../shared/layout
+
+block main-content
+    .col-md-12
+        .well
+            form(method="post", action="", class='form-vertical' name="searchForm")
+                fieldset
+                    legend Search
+                    div
+                    .col-md-12
+                        .form-group.is-empty.col-md-4
+                            input.form-control.col-md-4(type="text" placeholder="Search by title" name="title")
+                            span.material-input
+                        b.col-md-2 Price:
+                        .form-group.is-empty.col-md-3
+                            input.form-control.col-md-4(type="number" placeholder="From" min="0" name="priceFrom")
+                            span.material-input
+                        .form-group.is-empty.col-md-3
+                            input.form-control.col-md-4(type="number" placeholder="To" min="0" name="priceTo")
+                            span.material-input
+                    .col-md-12
+                        .form-group.col-md-3
+                            label.col-md-6.control-label(for="offerType") Offer Type
+                            .col-md-12
+                                select.form-control(id="offerType" multiple="" name="offerType")
+                                    option(value="For Sale") For Sale
+                                    option(value="For Sale") For Rent
+                        .form-group.col-md-3
+                            label.col-md-6.control-label(for="location") Location
+                            .col-md-12
+                                select.form-control(id="location" multiple="" name="location")
+                                    each loc in pageData.common.locations
+                                        option(value="#{loc}")
+                                            | #{loc}
+                        .form-group.col-md-3
+                            label.col-md-6.control-label(for="realEstateType") Type
+                            .col-md-12
+                                select.form-control(id="realEstateType" multiple="" name="realEstateType")
+                                    each type in pageData.common.realEstateTypes
+                                        option(value="#{type}")
+                                            | #{type}
+                        .form-group.col-md-3
+                            label.col-md-6.control-label(for="constructionType") Construction
+                            .col-md-12
+                                select.form-control(id="constructionType" multiple="" name="constructionType")
+                                    each type in pageData.common.constructionTypes
+                                        option(value="#{type}")
+                                            | #{type}
+                    .col-md-12
+                        .form-group.col-md-6
+                            col-md-10.col-md-offset-2
+                                button(type="reset" class="btn btn-default") Cancel
+                                button(type="submit" class="btn btn-primary") Browse
+
+
+    // RESULTS
+    .panel.panel-default
+        h2.panel-heading
+            | Real Estates
+        if pageData.realEstates
+            .panel-body
+                table.table.table-hover.table-condensed
+                    thead
+                        tr
+                            th Offer type
+                            th Title
+                            th Description
+                            th Location
+                            th Type
+                            th Construction
+                    tbody
+                        each realEstate in pageData.realEstates
+                            tr
+                                if realEstate.salePrice
+                                    td For Sale
+                                else
+                                    td For Rent
+                                td
+                                    a(href="details/" + realEstate['title'] + '/' + realEstate['_id'])= realEstate.title
+                                td= realEstate.description
+                                td= realEstate.location
+                                td= realEstate.realEstateType
+                                td= realEstate.constructionType
+        else
+            .panel-body NO RESULTS

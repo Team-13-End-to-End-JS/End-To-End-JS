@@ -32,31 +32,23 @@ block main-content
                             .col-md-10
                                 .radio.radio-primary
                                     label For Sale
-                                        input(type="radio" name="offerType" id="offerTypeSale" value="for Sale" ng-model="offerType")
+                                        input(type="radio" name="offerType" id="offerTypeSale" value="forSale" ng-model="offerType")
                                         span.circle
                                         span.check
                                 .radio.radio-primary
                                     label For Rent
-                                        input(type="radio" name="offerType" id="offerTypeRent" value="for Rent" ng-model="offerType")
+                                        input(type="radio" name="offerType" id="offerTypeRent" value="forRent" ng-model="offerType")
                                         span.circle
                                         span.check
 
-                        .form-group(ng-show="offerType === 'for Sale'")
-                            label(for="salePrice", class='col-md-2 control-label') Sale Price
+                        .form-group
+                            label(for="price", class='col-md-2 control-label') Sale Price
                             .col-md-10
-                                input(id="salePrice" class="form-control" type="number" name="salePrice" placeholder="$50 000" ng-model="realEstate.salePrice" min="0")
+                                input(id="price" class="form-control" type="number" name="price" placeholder="Price" ng-model="realEstate.price" min="0")
                                 span(ng-show="realEstateCreateForm.quadrature.$error.number")
                                     | Not a valid number!
                                 span(ng-show="realEstateCreateForm.quadrature.$error.min")
                                     | Min sale price 0
-                        .form-group(ng-show="offerType === 'for Rent'")
-                            label(for="rentPrice", class='col-md-2 control-label') Rent Price
-                            .col-md-10
-                                input(id="rentPrice" class="form-control" type="number" name="rentPrice" placeholder="50$ per month" ng-model="realEstate.rentPrice" min="0")
-                                span(ng-show="realEstateCreateForm.quadrature.$error.number")
-                                    | Not a valid number!
-                                span(ng-show="realEstateCreateForm.quadrature.$error.min")
-                                    | Min price 0
                         .form-group
                             label(for="quadrature", class='col-md-2 control-label') Quadrature
                             .col-md-10
