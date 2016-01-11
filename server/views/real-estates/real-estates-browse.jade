@@ -6,6 +6,7 @@ block main-content
             form(method="post", action="", class='form-vertical' name="searchForm")
                 fieldset
                     legend Search
+                    div
                     .col-md-12
                         .form-group.is-empty.col-md-4
                             input.form-control.col-md-4(type="text" placeholder="Search by name")
@@ -18,37 +19,41 @@ block main-content
                             input.form-control.col-md-4(type="number" placeholder="To" min="0")
                             span.material-input
                     .col-md-12
-                        .form-group.col-md-4
+                        .form-group.col-md-3
                             label.col-md-6.control-label(for="offerType") Offer Type
                             .col-md-12
                                 select.form-control(id="offerType" multiple="")
-                                    option For Sale
-                                    option For Rent
-                        .form-group.col-md-4
+                                    option(value="For Sale") For Sale
+                                    option(value="For Sale") For Rent
+                        .form-group.col-md-3
+                            label.col-md-6.control-label(for="location") Location
+                            .col-md-12
+                                select.form-control(id="location" multiple="")
+                                    each loc in pageData.common.locations
+                                        option(value="#{loc}")
+                                            | #{loc}
+                        .form-group.col-md-3
                             label.col-md-6.control-label(for="realEstateType") Type
                             .col-md-12
                                 select.form-control(id="realEstateType" multiple="")
-                                    option 2-rooms
-                                    option 3-rooms
-                                    option 3-rooms
-                                    option 3-rooms
-                                    option 3-rooms
-                                    option Other
-                        .form-group.col-md-4
+                                    each type in pageData.common.realEstateTypes
+                                        option(value="#{type}")
+                                            | #{type}
+                        .form-group.col-md-3
                             label.col-md-6.control-label(for="constructionType") Construction
                             .col-md-12
                                 select.form-control(id="constructionType" multiple="")
-                                    option Brick
-                                    option Panel
-                                    option Other
+                                    each type in pageData.common.constructionTypes
+                                        option(value="#{type}")
+                                            | #{type}
                     .col-md-12
                         .form-group.col-md-6
                             col-md-10.col-md-offset-2
                                 button(type="reset" class="btn btn-default") Cancel
                                 button(type="submit" class="btn btn-primary") Browse
     h1.container
-        | Browse here :)
-    if realEstates
-        p Real Estates
+        | Real Estates:
+    if pageData.realEstates
+        p Real Estates from db
     else
         p No results

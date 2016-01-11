@@ -50,14 +50,38 @@
 
     function getPublic(req, res) {
 
-        data.realEstates.getPublic(req.query)
-            .then(function (dbResponse) {
-                if (dbResponse.length === 0) {
-                    res.render('real-estates/real-estates-browse');
-                } else {
-                    res.render('real-estates/real-estates-browse', {realEstates: dbResponse });
+        var pageData = {
+            pageData: {}
+        };
+
+        data.constructionTypes.all()
+            .then(function (constructionTypes) {
+                    pageData.constructionTypes = constructionTypes;
                 }
-            });
+            );
+
+        data.realEstateTypes.all()
+            .then(function (realEstateTypes) {
+                    pageData.realEstateTypes = realEstateTypes;
+                }
+            );
+
+        data.locations.all()
+            .then(function (locations) {
+                    pageData.locations = locations;
+
+                    data.realEstates.getPublic(req.query)
+                        .then(function (dbResponse) {
+                            if (dbResponse.length === 0) {
+                                res.render('real-estates/real-estates-browse', {pageData: { common: pageData}});
+                            } else {
+                                res.render('real-estates/real-estates-browse', {pageData: { common: pageData, realEstates: dbResponse}});
+                            }
+                        });
+                }
+            );
+
+
     }
 
     function getAll(req, res) {
