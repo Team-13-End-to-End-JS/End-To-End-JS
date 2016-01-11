@@ -68,6 +68,10 @@
                 type: String,
                 required: true
             },
+            isApproved: {
+                type: Boolean,
+                default: false
+            },
             _user: { type: Schema.Types.ObjectId, ref: 'User' }
         });
 

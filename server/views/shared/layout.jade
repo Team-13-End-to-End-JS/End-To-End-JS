@@ -13,8 +13,9 @@ html
                     ul.nav.navbar-nav
                         li
                             a(href="/") Home
-                        li
-                            a(href="/realestates/post") Offer
+                        if(currentUser && currentUser.roles.indexOf('regular') > -1)
+                            li
+                                a(href="/realestates/post") Offer
                         li
                             a(href="/realestates/browse") Browse
                         li
