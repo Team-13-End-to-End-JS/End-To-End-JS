@@ -22,30 +22,37 @@ block main-content
                         .form-group.col-md-3
                             label.col-md-6.control-label(for="offerType") Offer Type
                             .col-md-12
-                                select.form-control(id="offerType" multiple="" name="offerType")
-                                    option(value="For Sale") For Sale
-                                    option(value="For Sale") For Rent
+                                select.form-control(id="offerType" name="offerType")
+                                    option(value="") Select
+                                    option(value="forSale") For Sale
+                                    option(value="forRent") For Rent
                         .form-group.col-md-3
                             label.col-md-6.control-label(for="location") Location
                             .col-md-12
-                                select.form-control(id="location" multiple="" name="location")
-                                    each loc in pageData.common.locations
-                                        option(value="#{loc}")
-                                            | #{loc}
+                                select.form-control(id="location" name="location")
+                                    option(value="")
+                                        | Select
+                                        each loc in pageData.common.locations
+                                            option(value="#{loc}")
+                                                | #{loc}
                         .form-group.col-md-3
                             label.col-md-6.control-label(for="realEstateType") Type
                             .col-md-12
-                                select.form-control(id="realEstateType" multiple="" name="realEstateType")
-                                    each type in pageData.common.realEstateTypes
-                                        option(value="#{type}")
-                                            | #{type}
+                                select.form-control(id="realEstateType" name="realEstateType")
+                                    option(value="")
+                                        | Select
+                                        each type in pageData.common.realEstateTypes
+                                            option(value="#{type}")
+                                                | #{type}
                         .form-group.col-md-3
                             label.col-md-6.control-label(for="constructionType") Construction
                             .col-md-12
-                                select.form-control(id="constructionType" multiple="" name="constructionType")
-                                    each type in pageData.common.constructionTypes
-                                        option(value="#{type}")
-                                            | #{type}
+                                select.form-control(id="constructionType" name="constructionType")
+                                    option(value="")
+                                        | Select
+                                        each type in pageData.common.constructionTypes
+                                            option(value="#{type}")
+                                                | #{type}
                     .col-md-12
                         .form-group.col-md-6
                             col-md-10.col-md-offset-2
@@ -65,19 +72,21 @@ block main-content
                             th Offer type
                             th Title
                             th Description
+                            th Price
                             th Location
                             th Type
                             th Construction
                     tbody
                         each realEstate in pageData.realEstates
                             tr
-                                if realEstate.salePrice
+                                if realEstate.offerType === 'forSale'
                                     td For Sale
                                 else
                                     td For Rent
                                 td
                                     a(href="details/" + realEstate['title'] + '/' + realEstate['_id'])= realEstate.title
                                 td= realEstate.description
+                                td= '$ ' + realEstate.price
                                 td= realEstate.location
                                 td= realEstate.realEstateType
                                 td= realEstate.constructionType

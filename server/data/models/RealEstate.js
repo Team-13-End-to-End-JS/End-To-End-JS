@@ -68,7 +68,8 @@
             },
             isApproved: {
                 type: Boolean,
-                default: false
+                default: false,
+                required: true
             },
             createdOn: {
                 type: Date

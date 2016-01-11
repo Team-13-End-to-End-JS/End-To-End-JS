@@ -6,6 +6,9 @@
 
     function create(realEstate) {
 
+        console.log('from create:')
+        console.log(realEstate.offerType);
+
         let newRealEstate = {
             title: realEstate.title,
             description: realEstate.description,
@@ -46,24 +49,19 @@
     }
 
     function getPublic(options) {
-        //if (options) {
-        //    options.isApproved= true;
-        //} else {
-        //    options = {isApproved: true};
-        //}
 
         var from = 0, to = Number.MAX_VALUE;
 
         if(Object.keys(options).length !== 0) {
             if (options.priceFrom !== '') {
-                from = +options.priceFrom;
+                from = +options.priceFrom - 1;
             } else {
                 from = 0;
             }
             delete options.priceFrom;
 
             if (options.priceTo !== '') {
-                to = +options.priceTo;
+                to = +options.priceTo + 1;
             } else {
                 to = Number.MAX_VALUE;
             }
@@ -72,9 +70,27 @@
             if (options.title === '') {
                 delete options.title;
             }
-            console.log(options);
 
         }
+
+
+        if(!options.location) {
+            delete options.location;
+        }
+
+        if(!options.realEstateType) {
+            delete options.realEstateType;
+        }
+
+        if(!options.constructionType) {
+            delete options.constructionType;
+        }
+
+        if(!options.offerType) {
+            delete options.offerType;
+        }
+
+        console.log(options);
 
         // TODO: when admin part is ready to approove: find real estates by oprions
         let promise = new Promise(function(resolve, reject) {
@@ -82,6 +98,7 @@
                 .find(options)
                 .sort('-createdOn')
                 .where('price').gt(from).lt(to)
+               // .where('offerType').in(offerTypes)
                 .exec(function(err, realEstates) {
                     if (err) {
                         reject(err);
