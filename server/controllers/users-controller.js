@@ -58,7 +58,9 @@
                 .then(function(dbResponse) {
                     res.json(dbResponse);
                 }, function(err) {
+                    console.log(err);
                     res.json(err);
+                    res.end();
                 });
         },
         all: function(req, res) {
@@ -69,7 +71,33 @@
                 .then(function(dbResponse) {
                     res.json(dbResponse);
                 }, function(err) {
+                    console.log(err);
                     res.json(err);
+                    res.end();
+                });
+        },
+        getCurrentUserProfile: function(req, res) {
+            console.log(req.user);
+            let user = req.user;
+
+            res.render('account/privateProfile', {data: {
+                user: user
+            }});
+        },
+        getUserProfile: function(req,res) {
+            let username = req.params['username'];
+
+            data.users
+                .getUser(username)
+                .then(function(dbResponse) {
+                    console.log(dbResponse);
+                    res.render('account/profile', {data: {
+                        user: dbResponse
+                    }});
+                }, function(err) {
+                    console.log(err);
+                    res.locals.errors = err;
+                    res.end();
                 });
         }
     }

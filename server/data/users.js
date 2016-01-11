@@ -78,7 +78,7 @@
                     return reject(err);
                 }
 
-                var roleIndex = VALID_ROLES.indexOf(role);
+                let roleIndex = VALID_ROLES.indexOf(role);
                 if (roleIndex > - 1 && user.roles.indexOf(role) > -1) {
                     user.roles.splice(roleIndex, 1);
                     user.save(function(dbErr) {
@@ -97,9 +97,24 @@
         return promise;
     }
 
+    function getUser(username) {
+        let promise = new Promise(function(resolve, reject) {
+            User.findOne({username: username}, function(err, user) {
+                if (err) {
+                    return reject(err);
+                }
+
+                resolve(user);
+            });
+        });
+
+        return promise;
+    }
+
     module.exports = {
         create: createUser,
         getAll: getAll,
+        getUser: getUser,
         promote: promoteUser,
         demote: demoteUser
     };

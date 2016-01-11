@@ -33,8 +33,25 @@
         return promise;
     }
 
+    function remove(index) {
+        let promise = new Promise(function(resolve, reject) {
+            RealEstateType.findOne({}, function(err, collection) {
+                if(err) {
+                    return reject(err);
+                }
+
+                collection.types.splice(index, 1);
+                collection.save();
+                resolve(index);
+            }) ;
+        });
+
+        return promise;
+    }
+
     module.exports = {
         add: add,
-        all: all
+        all: all,
+        remove: remove
     };
 }());
