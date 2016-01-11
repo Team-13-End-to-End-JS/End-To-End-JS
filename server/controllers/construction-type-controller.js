@@ -26,7 +26,7 @@
     }
 
     module.exports = {
-        getAll: getAll,
+        all: getAll,
         create: create
     }
 }());
