@@ -1,26 +1,24 @@
 (function () {
     'use strict';
-
     let RealEstate = require('mongoose').model('RealEstate');
     let User = require('mongoose').model('User');
 
     function create(realEstate) {
-
-        console.log('from create:')
-        console.log(realEstate.offerType);
-
         let newRealEstate = {
+            _user: realEstate['_user'],
             title: realEstate.title,
             description: realEstate.description,
             offerType: realEstate.offerType,
             price: +realEstate.price,
             quadrature: +realEstate.quadrature,
             year: +realEstate.year,
+            url: realEstate.url,
             location: realEstate.location,
             constructionType: realEstate.constructionType,
             realEstateType: realEstate.realEstateType,
             createdOn: realEstate.createdOn
         };
+
         return RealEstate.create(newRealEstate, function(err, createdRealEstate) {
             if (err) {
                 console.log(err);

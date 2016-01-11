@@ -30,6 +30,7 @@
 
     function create(req, res) {
         req.body.createdOn = new Date();
+        req.body['_user'] = req.user['_id'];
 
         data.realEstates
             .create(req.body)

@@ -71,6 +71,9 @@
                 default: false,
                 required: true
             },
+            url: {
+                type: String
+            },
             createdOn: {
                 type: Date
             },

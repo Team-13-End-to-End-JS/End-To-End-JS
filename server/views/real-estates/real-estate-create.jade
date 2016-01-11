@@ -26,7 +26,6 @@ block main-content
                                     | Min. length is 5 characters
                                 span(ng-show="realEstateCreateForm.description.$error.maxlength")
                                     | Max. length is 500 characters
-
                         .form-group
                             label(class='col-md-2 control-label') Offer type
                             .col-md-10
@@ -49,6 +48,11 @@ block main-content
                                     | Not a valid number!
                                 span(ng-show="realEstateCreateForm.quadrature.$error.min")
                                     | Min sale price 0
+                        .form-group
+                            label(for="url", class='col-md-2 control-label') Url
+                            .col-md-10
+                                input(id="url" class="form-control" type="text" name="url" placeholder="Url" ng-model="realEstate.url")
+
                         .form-group
                             label(for="quadrature", class='col-md-2 control-label') Quadrature
                             .col-md-10

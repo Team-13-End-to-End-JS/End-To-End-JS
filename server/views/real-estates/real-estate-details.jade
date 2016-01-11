@@ -1,34 +1,21 @@
 extends ../shared/layout
 
 block main-content
-    .container
-        span Title=
-        span=realEstate.title
-        br
-        span Description=
-        span=realEstate.description
-        br
-        span Location=
-        span=realEstate.location
-        br
-        span Sale Price=
-        span=realEstate.salePrice
-        br
-        span Rent Price=
-        span=realEstate.rentPrice
-        br
-        span Quadrature=
-        span=realEstate.quadrature
-        br
-        span Year=
-        span=realEstate.year
-        br
-        span Type=
-        span=realEstate.realEstateType
-        br
-        span Construction Type=
-        span=realEstate.constructionType
-        br
-        span Created On =
-        span=realEstate.createdOn
-        br
+    jumbotron
+        h1= 'Title: ' + realEstate.title
+        if realEstate.offerType === 'forRent'
+            h3
+                b For Rent
+        else
+            h3
+                b For Sale
+        p= 'Description: ' + realEstate.description
+        p= 'Created On: ' + moment(realEstate.createdOn).format("MMMM Do YYYY")
+        p= 'Location: ' + realEstate.location
+        p= 'Year: ' + realEstate.year
+        p= 'Construction Type: ' + realEstate.constructionType
+        p= 'Type: ' + realEstate.realEstateType
+        if realEstate.url !== undefined
+            img(src=realEstate.url alt="" height="100" width="100")
+        else
+            img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRavPM1Z_Vrg4E0T7WmHI6jaNO0XYJqp3549G_nFHqW6l49LS3S" alt="Smiley face" height="100" width="100")
