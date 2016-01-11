@@ -60,7 +60,7 @@
         }
 
         let promise = new Promise(function(resolve, reject) {
-            RealEstate.find(options, function(err, realEstates) {
+            RealEstate.find({}, function(err, realEstates) {
                 if (err) {
                     reject(err);
                 }

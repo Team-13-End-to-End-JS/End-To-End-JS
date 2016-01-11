@@ -53,6 +53,8 @@
         var pageData = {
             pageData: {}
         };
+        let pageSize = 10;
+        let page = (req.query.page != undefined && +req.query.page > 0) ? +req.query.page : 1;
 
         data.constructionTypes.all()
             .then(function (constructionTypes) {
@@ -72,10 +74,18 @@
 
                     data.realEstates.getPublic(req.query)
                         .then(function (dbResponse) {
+                            let realEstates = dbResponse.slice((page-1)*pageSize, page*pageSize);
+
                             if (dbResponse.length === 0) {
-                                res.render('real-estates/real-estates-browse', {pageData: { common: pageData}});
+                                res.render('real-estates/real-estates-browse', {pageData: {
+                                    common: pageData,
+                                    page: page
+                                }});
                             } else {
-                                res.render('real-estates/real-estates-browse', {pageData: { common: pageData, realEstates: dbResponse}});
+                                res.render('real-estates/real-estates-browse', {pageData: {
+                                    common: pageData,
+                                    page: page,
+                                    realEstates: dbResponse}});
                             }
                         });
                 }
