@@ -3,3 +3,60 @@ extends ../shared/layout
 block main-content
     h2
         | Content Control View
+
+    .panel.panel-primary
+        .panel-heading
+            div.row
+                div.col-md-6.col-lg-6(style="line-height: 3")
+                    | Real Estate Types Control
+                div.col-md-6.col-lg-6
+                    button.btn.btn-sm.btn-info.pull-right.btn-raised
+                        span.glyphicon.glyphicon-plus
+        .panel-body
+            ul.list-item-group
+                each ret, index in data.realEstateTypes
+                    li.list-group-item(data-estate-type=index)
+                        div.row
+                            div.col-md-6.col-lg-6= ret
+                            div.col-md-6.col-lg-6
+                                a.btn.btn-sm.btn-danger.pull-right.btn-raised(href='javascript:document.getElementById("form-rm-type-' + index + '").submit()')
+                                    span.glyphicon.glyphicon-trash
+                                form(method="POST", action="/admin/content/types/" + index, id="form-rm-type-" + index).hidden
+
+    .panel.panel-primary
+        .panel-heading
+            div.row
+                div.col-md-6.col-lg-6(style="line-height: 3")
+                    | Real Estate Locations Control
+                div.col-md-6.col-lg-6
+                    button.btn.btn-sm.btn-info.pull-right.btn-raised
+                        span.glyphicon.glyphicon-plus
+        .panel-body
+            ul.list-item-group
+                each rel, index in data.realEstateLocations
+                    li.list-group-item(data-estate-location=index)
+                        div.row
+                            div.col-md-6.col-lg-6= rel
+                            div.col-md-6.col-lg-6
+                                a.btn.btn-sm.btn-danger.pull-right.btn-raised(href='javascript:document.getElementById("form-rm-loc-' + index + '").submit()')
+                                    span.glyphicon.glyphicon-trash
+                                form(method="POST", action="/admin/content/locations/" + index, id="form-rm-loc-" + index).hidden
+
+    .panel.panel-primary
+        .panel-heading
+            div.row
+                div.col-md-6.col-lg-6(style="line-height: 3")
+                    | Real Estate Construction Types Control
+                div.col-md-6.col-lg-6
+                    button.btn.btn-sm.btn-info.pull-right.btn-raised
+                        span.glyphicon.glyphicon-plus
+        .panel-body
+            ul.list-item-group
+                each rec, index in data.realEstateConstruction
+                    li.list-group-item(data-estate-construction=index)
+                        div.row
+                            div.col-md-6.col-lg-6= rec
+                            div.col-md-6.col-lg-6
+                                a.btn.btn-sm.btn-danger.pull-right.btn-raised(href='javascript:document.getElementById("form-rm-constr-' + index + '").submit()')
+                                    span.glyphicon.glyphicon-trash
+                                form(method="POST", action="/admin/content/construction/" + index, id="form-rm-constr-" + index).hidden

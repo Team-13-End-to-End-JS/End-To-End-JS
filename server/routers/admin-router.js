@@ -7,6 +7,9 @@
 
     router
         .get('/content', controllers.admin.getContentControl)
+        .post('/content/locations/:location', controllers.admin.removeLocationContentControl)
+        .post('/content/types/:type', controllers.admin.removeTypeContentControl)
+        .post('/content/construction/:constrId', controllers.admin.removeConstructionContentControl)
         .get('/pending', controllers.admin.getPendingPosts)
         .put('/pending/:id', controllers.admin.updatePendingPost)
         .get('/posts', controllers.admin.getAllPosts)

@@ -33,8 +33,25 @@
         return promise;
     }
 
+    function remove(index) {
+        let promise = new Promise(function(resolve, reject) {
+            Location.findOne({}, function(err, collection) {
+                if (err) {
+                    return reject(err);
+                }
+
+                collection.names.splice(index, 1);
+                collection.save();
+                resolve(index);
+            });
+        });
+
+        return promise;
+    }
+
     module.exports = {
         all: all,
-        add: add
+        add: add,
+        remove: remove
     };
 }());

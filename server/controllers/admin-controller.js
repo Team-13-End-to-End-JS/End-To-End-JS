@@ -6,7 +6,69 @@
 
     module.exports = {
         getContentControl: function(req, res) {
-            res.render('admin/content');
+            let ret = data.realEstateTypes;
+            let rec = data.constructionTypes;
+            let rel = data.locations;
+            let options = {};
+
+            ret.all().then(function(dbResultRet) {
+                rec.all().then(function(dbResultRec) {
+                    rel.all().then(function(dbResultRel) {
+                        options.realEstateTypes = dbResultRet;
+                        options.realEstateLocations = dbResultRel;
+                        options.realEstateConstruction = dbResultRec;
+
+                        res.render('admin/content', {data: options});
+
+                    }, function(err) {
+                        console.log(err);
+                        res.locals.errors = err;
+                        res.render('/shared/badRequest');
+                    });
+                }, function(err) {
+                    console.log(err);
+                    res.locals.errors = err;
+                    res.render('/shared/badRequest');
+                });
+
+            }, function(err) {
+                console.log(err);
+                res.locals.errors = err;
+                res.render('/shared/badRequest');
+            });
+        },
+        removeLocationContentControl: function(req, res) {
+            let locId = +req.params["location"];
+
+            data.locations
+                .remove(locId)
+                .then(function(dbResult) {
+                    res.redirect('/admin/content');
+                }, function(err) {
+                    console.log(err);
+                });
+        },
+        removeTypeContentControl: function(req, res) {
+            let typeId = +req.params["type"];
+
+            data.realEstateTypes
+                .remove(typeId)
+                .then(function(dbResult) {
+                    res.redirect('/admin/content');
+                }, function(err) {
+                    console.log(err);
+                });
+        },
+        removeConstructionContentControl: function(req, res) {
+            let constrId = +req.params["constrId"];
+
+            data.constructionTypes
+                .remove(constrId)
+                .then(function(dbResult) {
+                    res.redirect('/admin/content');
+                }, function(err) {
+                    console.log(err);
+                });
         },
         getPendingPosts: function(req, res) {
             res.render('admin/pending');
