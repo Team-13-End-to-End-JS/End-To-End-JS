@@ -72,6 +72,9 @@
                 type: Boolean,
                 default: false
             },
+            createdOn: {
+                type: Date
+            },
             _user: { type: Schema.Types.ObjectId, ref: 'User' }
         });
 

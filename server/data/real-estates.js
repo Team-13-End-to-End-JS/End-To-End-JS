@@ -13,7 +13,8 @@
             year: +realEstate.year,
             location: realEstate.location,
             constructionType: realEstate.constructionType,
-            realEstateType: realEstate.realEstateType
+            realEstateType: realEstate.realEstateType,
+            createdOn: realEstate.createdOn
         };
 
         if(realEstate.salePrice !== '') {
@@ -51,12 +52,27 @@
 
     }
 
-    function getPublic() {
+    function getPublic(options) {
+        if (options) {
+            options.isApproved= true;
+        } else {
+            options = {isApproved: true};
+        }
 
+        let promise = new Promise(function(resolve, reject) {
+            RealEstate.find(options, function(err, realEstates) {
+                if (err) {
+                    reject(err);
+                }
+
+                resolve(realEstates);
+            });
+        });
+
+        return promise;
     }
 
-    function getAll(options) {
-
+    function getAll() {
     }
 
     module.exports = {

@@ -4,10 +4,6 @@
     let data = require('../data/data');
 
     function getCreate(req, res) {
-        // TODO:
-        // if !req.user
-        // res.render(notAuthorized)
-
         var pageData = {
             pageData: {}
         };
@@ -33,11 +29,12 @@
     }
 
     function create(req, res) {
-        console.log(req.body);
+        req.body.createdOn = new Date();
+
         data.realEstates
             .create(req.body)
             .then(function(dbResponse) {
-                res.redirect('/realestates/' + dbResponse['_id']);
+                res.redirect('/realestates/details/' + dbResponse['title'] + '/' + dbResponse['_id']);
             }, function(err) {
                 res.session.error = "Cannot create real estate offer!";
                 res.render('realestates/post', {errors: 'Create Offer Failed'});
@@ -51,16 +48,27 @@
             });
     }
 
-    function all(req, res) {
-        options = res.body.options || {};
+    function getPublic(req, res) {
 
-        res.end();
+        data.realEstates.getPublic(req.query)
+            .then(function (dbResponse) {
+                if (dbResponse.length === 0) {
+                    res.render('real-estates/real-estates-browse');
+                } else {
+                    res.render('real-estates/real-estates-browse', {realEstates: dbResponse });
+                }
+            });
+    }
+
+    function getAll(req, res) {
+
     }
 
     module.exports = {
         getCreate: getCreate,
         create: create,
         getDetails: getDetails,
-        getAll: all
+        getAll: getAll,
+        getPublic: getPublic
     }
 }());
