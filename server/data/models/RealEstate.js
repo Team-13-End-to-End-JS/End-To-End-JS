@@ -24,19 +24,17 @@
                 require: '{PATH} is required',
                 message: '{PATH} description should be between 1 and 500 symbols'
             },
-            rentPrice: {
+            price: {
                 type: Number,
+                required: true,
                 validate: function (input) {
                     return input > 0;
                 },
                 message: '{PATH} renting price should be a positive number'
             },
-            salePrice: {
-                type: Number,
-                validate: function (input) {
-                    return input > 0;
-                },
-                message: '{PATH} selling price should be a positive number'
+            offerType: {
+                type: String,
+                require: true
             },
             quadrature: {
                 type: Number,

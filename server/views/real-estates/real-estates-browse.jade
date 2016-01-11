@@ -9,40 +9,40 @@ block main-content
                     div
                     .col-md-12
                         .form-group.is-empty.col-md-4
-                            input.form-control.col-md-4(type="text" placeholder="Search by name")
+                            input.form-control.col-md-4(type="text" placeholder="Search by title" name="title")
                             span.material-input
                         b.col-md-2 Price:
                         .form-group.is-empty.col-md-3
-                            input.form-control.col-md-4(type="number" placeholder="From" min="0")
+                            input.form-control.col-md-4(type="number" placeholder="From" min="0" name="priceFrom")
                             span.material-input
                         .form-group.is-empty.col-md-3
-                            input.form-control.col-md-4(type="number" placeholder="To" min="0")
+                            input.form-control.col-md-4(type="number" placeholder="To" min="0" name="priceTo")
                             span.material-input
                     .col-md-12
                         .form-group.col-md-3
                             label.col-md-6.control-label(for="offerType") Offer Type
                             .col-md-12
-                                select.form-control(id="offerType" multiple="")
+                                select.form-control(id="offerType" multiple="" name="offerType")
                                     option(value="For Sale") For Sale
                                     option(value="For Sale") For Rent
                         .form-group.col-md-3
                             label.col-md-6.control-label(for="location") Location
                             .col-md-12
-                                select.form-control(id="location" multiple="")
+                                select.form-control(id="location" multiple="" name="location")
                                     each loc in pageData.common.locations
                                         option(value="#{loc}")
                                             | #{loc}
                         .form-group.col-md-3
                             label.col-md-6.control-label(for="realEstateType") Type
                             .col-md-12
-                                select.form-control(id="realEstateType" multiple="")
+                                select.form-control(id="realEstateType" multiple="" name="realEstateType")
                                     each type in pageData.common.realEstateTypes
                                         option(value="#{type}")
                                             | #{type}
                         .form-group.col-md-3
                             label.col-md-6.control-label(for="constructionType") Construction
                             .col-md-12
-                                select.form-control(id="constructionType" multiple="")
+                                select.form-control(id="constructionType" multiple="" name="constructionType")
                                     each type in pageData.common.constructionTypes
                                         option(value="#{type}")
                                             | #{type}

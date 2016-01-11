@@ -9,6 +9,8 @@
         let newRealEstate = {
             title: realEstate.title,
             description: realEstate.description,
+            offerType: realEstate.offerType,
+            price: +realEstate.price,
             quadrature: +realEstate.quadrature,
             year: +realEstate.year,
             location: realEstate.location,
@@ -16,15 +18,6 @@
             realEstateType: realEstate.realEstateType,
             createdOn: realEstate.createdOn
         };
-
-        if(realEstate.salePrice !== '') {
-            newRealEstate.salePrice = +realEstate.salePrice;
-        }
-
-        if(realEstate.rentPrice !== '') {
-            newRealEstate.rentPrice = +realEstate.rentPrice;
-        }
-
         return RealEstate.create(newRealEstate, function(err, createdRealEstate) {
             if (err) {
                 console.log(err);
@@ -53,19 +46,48 @@
     }
 
     function getPublic(options) {
-        if (options) {
-            options.isApproved= true;
-        } else {
-            options = {isApproved: true};
+        //if (options) {
+        //    options.isApproved= true;
+        //} else {
+        //    options = {isApproved: true};
+        //}
+
+        var from = 0, to = Number.MAX_VALUE;
+
+        if(Object.keys(options).length !== 0) {
+            if (options.priceFrom !== '') {
+                from = +options.priceFrom;
+            } else {
+                from = 0;
+            }
+            delete options.priceFrom;
+
+            if (options.priceTo !== '') {
+                to = +options.priceTo;
+            } else {
+                to = Number.MAX_VALUE;
+            }
+            delete options.priceTo;
+
+            if (options.title === '') {
+                delete options.title;
+            }
+            console.log(options);
+
         }
 
+        // TODO: when admin part is ready to approove: find real estates by oprions
         let promise = new Promise(function(resolve, reject) {
-            RealEstate.find({}, function(err, realEstates) {
-                if (err) {
-                    reject(err);
-                }
+            RealEstate
+                .find(options)
+                .sort('-createdOn')
+                .where('price').gt(from).lt(to)
+                .exec(function(err, realEstates) {
+                    if (err) {
+                        reject(err);
+                    }
 
-                resolve(realEstates);
+                    resolve(realEstates);
             });
         });
 

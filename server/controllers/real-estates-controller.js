@@ -49,12 +49,9 @@
     }
 
     function getPublic(req, res) {
-
         var pageData = {
             pageData: {}
         };
-        let pageSize = 10;
-        let page = (req.query.page != undefined && +req.query.page > 0) ? +req.query.page : 1;
 
         data.constructionTypes.all()
             .then(function (constructionTypes) {
@@ -74,24 +71,57 @@
 
                     data.realEstates.getPublic(req.query)
                         .then(function (dbResponse) {
-                            let realEstates = dbResponse.slice((page-1)*pageSize, page*pageSize);
 
                             if (dbResponse.length === 0) {
                                 res.render('real-estates/real-estates-browse', {pageData: {
-                                    common: pageData,
-                                    page: page
+                                    common: pageData
                                 }});
                             } else {
                                 res.render('real-estates/real-estates-browse', {pageData: {
                                     common: pageData,
-                                    page: page,
                                     realEstates: dbResponse}});
                             }
                         });
                 }
             );
+    }
 
+    function postPublic(req, res) {
+        var pageData = {
+            pageData: {}
+        };
 
+        data.constructionTypes.all()
+            .then(function (constructionTypes) {
+                    pageData.constructionTypes = constructionTypes;
+                }
+            );
+
+        data.realEstateTypes.all()
+            .then(function (realEstateTypes) {
+                    pageData.realEstateTypes = realEstateTypes;
+                }
+            );
+
+        data.locations.all()
+            .then(function (locations) {
+                    pageData.locations = locations;
+
+                data.realEstates.getPublic(req.body)
+                    .then(function (dbResponse) {
+
+                        if (dbResponse.length === 0) {
+                            res.render('real-estates/real-estates-browse', {pageData: {
+                                common: pageData
+                            }});
+                        } else {
+                            res.render('real-estates/real-estates-browse', {pageData: {
+                                common: pageData,
+                                realEstates: dbResponse}});
+                        }
+                    });
+                }
+            );
     }
 
     function getAll(req, res) {
@@ -103,6 +133,7 @@
         create: create,
         getDetails: getDetails,
         getAll: getAll,
-        getPublic: getPublic
+        getPublic: getPublic,
+        postPublic: postPublic
     }
 }());
