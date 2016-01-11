@@ -12,7 +12,7 @@
             res.render('index');
         })
         .get('/unathorized', function(req, res) {
-            res.status(403);
+            res.status(401);
             res.render('shared/unathorized');
         })
         .get('/*', function(req, res) {

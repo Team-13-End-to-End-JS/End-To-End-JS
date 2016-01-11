@@ -47,8 +47,23 @@
         return promise;
     }
 
+    function getPendingApproval() {
+
+    }
+
+    function getPublic() {
+
+    }
+
+    function getAll(options) {
+
+    }
+
     module.exports = {
         create: create,
-        getById: getById
+        getById: getById,
+        getPublic: getPublic,
+        getPendingApproval: getPendingApproval,
+        getAll: getAll
     };
 }());

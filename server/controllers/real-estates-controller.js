@@ -50,9 +50,17 @@
                 res.render('real-estates/real-estate-details', {realEstate: realEstate});
             });
     }
+
+    function all(req, res) {
+        options = res.body.options || {};
+
+        res.end();
+    }
+
     module.exports = {
         getCreate: getCreate,
         create: create,
-        getDetails: getDetails
+        getDetails: getDetails,
+        getAll: all
     }
 }());
