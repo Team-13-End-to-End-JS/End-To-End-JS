@@ -1,5 +1,53 @@
 extends ../shared/layout
 
 block main-content
+    - var nextPage = data.page + 1;
+    - var prevPage = ((data.page - 1) > 0) ? data.page - 1 : data.page;
+    - var entries = data.posts.length;
+    - maxPage = Math.ceil(entries / 10) + 2;
+
     h2
-        | Pending Posts View
+        | Pending Offers
+
+    .panel.panel-primary(ng-controller = "PendingPostsController as vm")
+        .panel-heading
+            h4 Offers pending approval
+        .panel-body
+            table.table.table-hover.table-condensed
+                thead
+                    tr
+                        th Posted By
+                        th Offer Title
+                        th Real Estate Type
+                        th Location
+                        th Sqm
+                        th Price
+                        th Approve?
+                tbody
+                    each post in data.posts
+                        tr(id=post._id)
+                            td= post._user.username
+                            td
+                                a(href="/realestates/details/" + post.title + "/" + post._id)= post.title
+                            td= post.offerType
+                            td= post.location
+                            td= post.quadrature
+                            td= post.price
+                            td.text-center
+                                .btn-group-raised
+                                    button.btn.btn-success.glyphicon.glyphicon-thumbs-up(ng-click="vm.approve(true, '" + post._id + "')")
+                                    button.btn.btn-danger.glyphicon.glyphicon-thumbs-down(ng-click="vm.approve(false, '" + post._id + "')")
+        .panel-footer
+            ul.pagination
+                li
+                    a(href="?page=" + prevPage) «
+                if(prevPage !== data.page)
+                    li
+                        a(href="?page=" + prevPage)= prevPage
+                li.active
+                    a(href="javascript:;")= data.page
+                if(maxPage != data.page)
+                    li
+                        a(href="?page=" + nextPage)= nextPage
+                    li
+                        a(href="?page=" + nextPage) »

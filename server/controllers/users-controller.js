@@ -65,6 +65,10 @@
             data.users
                 .getUser(username)
                 .then(function(dbResponse) {
+                    if (!dbResponse) {
+                        res.render('shared/404');
+                    }
+
                     res.render('profile/profile', {data: {
                         user: dbResponse
                     }});

@@ -47,20 +47,20 @@ block main-content
                                         button.btn.btn-sm.btn-success#btn-promote(data-toggle="modal" data-target="#promote-dialog" ng-click="vm.uId ='" + user._id+"'") Promote
                                     if(user.roles.length >= 1)
                                         button.btn.btn-sm.btn-danger#btn-demote(data-toggle="modal" data-target="#demote-dialog" ng-click="vm.uId ='" + user._id+"'") Demote
-                div.text-center
-                    ul.pagination
+            .panel-footer.text-center
+                ul.pagination
+                    li
+                        a(href="?page=" + prevPage) «
+                    if(prevPage !== data.page)
                         li
-                            a(href="?page=" + prevPage) «
-                        if(prevPage !== data.page)
-                            li
-                                a(href="?page=" + prevPage)= prevPage
-                        li.active
-                            a(href="javascript:;")= data.page
-                        if(maxPage != data.page)
-                            li
-                                a(href="?page=" + nextPage)= nextPage
-                            li
-                                a(href="?page=" + nextPage) »
+                            a(href="?page=" + prevPage)= prevPage
+                    li.active
+                        a(href="javascript:;")= data.page
+                    if(maxPage != data.page)
+                        li
+                            a(href="?page=" + nextPage)= nextPage
+                        li
+                            a(href="?page=" + nextPage) »
 
         div#promote-dialog.modal.fade(tabindex="-1" style="display: none;")
             div.modal-dialog
