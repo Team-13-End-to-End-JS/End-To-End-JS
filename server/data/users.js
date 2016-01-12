@@ -96,7 +96,7 @@
                     user.roles.splice(highestRoleIndex, 1);
                     user.save(function(dbErr) {
                         if(dbErr) {
-                            return reject('An error occurred while updating the User entry');
+                            return reject(dbErr);
                         } else {
                             resolve(user);
                         }
@@ -124,10 +124,36 @@
         return promise;
     }
 
+    function updateUser(user) {
+        let promise = new Promise(function(resolve, rejeect) {
+            User.findOne({username: user.username}, function(err, dbUser) {
+                if (err) {
+                    return reject(err);
+                }
+
+                dbUser.firstName = user.firstName;
+                dbUser.lastName = user.lastName;
+                dbUser.phoneNumber = user.phoneNumber;
+
+                dbUser.save(function(dbErr) {
+                    if(dbErr) {
+                        console.log(dbErr);
+                        return reject("An error occurred while updating the User entry");
+                    } else {
+                        resolve(dbUser);
+                    }
+                });
+            });
+        });
+
+        return promise;
+    }
+
     module.exports = {
         create: createUser,
         getAll: getAll,
         getUser: getUser,
+        updateUser: updateUser,
         promote: promoteUser,
         demote: demoteUser
     };

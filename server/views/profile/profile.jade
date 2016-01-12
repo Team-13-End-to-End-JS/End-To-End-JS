@@ -1,5 +1,27 @@
 extends ../shared/layout
 
 block main-content
-    h2
-        | Current User's profile Page
+    .panel.panel-default
+        .panel-heading
+            h2 #{data.user.username}'s Profile
+        .panel-body.text-center(style="font-size: 1.5em")
+            h4.text-center User Profile of #{data.user.username}
+            .row.text-center
+                .col-md-6.col-lg-6.col-sm-6.label.label-primary First Name
+                .col-md-6.col-lg-6.col-sm-6.label.label-success= data.user.firstName
+            .row
+                .col-md-6.col-lg-6.col-sm-6.label.label-primary Last Name
+                .col-md-6.col-lg-6.col-sm-6.label.label-success= data.user.lastName
+            .row
+                .col-md-6.col-lg-6.col-sm-6.label.label-primary Contact Number
+                .col-md-6.col-lg-6.col-sm-6.label.label-success= data.user.phoneNumber
+            hr
+            .row
+                .panel.panel-default
+                    .panel-heading
+                        h4 User's offers
+                    .panel-body.text-center
+                        | TUK SA MI POSTOVETE
+
+        .panel-footer.text-center
+            | The user's details are private. Please do not disclose them with unathorized users. Respect privacy. Thank you!

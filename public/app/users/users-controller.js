@@ -18,6 +18,7 @@
             var userId = vm.uId;
             data.post('admin/users/' + userId)
                 .then(function(res) {
+                    console.log(res);
                     location.reload();
             }, function(err) {
                     console.log(err);
