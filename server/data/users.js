@@ -12,6 +12,7 @@
             username: user.username,
             firstName: user.firstName,
             lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
             salt: salt,
             hashPass: encryption.generateHashedPassword(salt, user.password),
             roles: user.roles || ['regular', 'admin']

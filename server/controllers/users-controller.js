@@ -27,6 +27,7 @@
                 .then(function(dbResponse) {
                     res.redirect('/login');
                 }, function(err) {
+                    console.log(err);
                     res.session.error = "A user with that name exists already!";
                     res.render('account/register', {errors: 'Register Failed'});
                 });
@@ -52,7 +53,6 @@
         },
         getCurrentUserProfile: function(req, res) {
             let user = req.user;
-
 
             res.render('profile/privateProfile', {data: {
                 user: user,
