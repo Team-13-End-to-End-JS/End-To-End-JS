@@ -1,4 +1,6 @@
 (function () {
+    'use strict';
+
     $.ajax({
             url: 'http://localhost:6969/statistics'
         })
@@ -6,24 +8,26 @@
 
             var data = [
                 {
-                    value: statistics.forSale,
+                    value: statistics.stats.forRent,
                     color: "#F7464A",
                     highlight: "#FF5A5E",
-                    label: "For Sale"
+                    label: "For Rent"
                 },
                 {
-                    value: statistics.forRent,
+                    value: statistics.stats.forSale,
                     color: "#46BFBD",
                     highlight: "#5AD3D1",
-                    label: "For Rent"
-                }
+                    label: "For Sale"
+                },
             ];
 
             if (document.getElementById("chart-area")) {
-                console.log('in client, but nothing to shown :( ');
 
                 var ctx = document.getElementById("chart-area").getContext("2d");
-                window.myPolarArea = new Chart(ctx).Pie(data);
+                window.myPolarArea = new Chart(ctx).Pie(data, {
+                    responsive: true
+                });
+
             }
         });
 }());

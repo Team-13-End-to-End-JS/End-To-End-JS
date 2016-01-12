@@ -2,3 +2,6 @@ extends shared/layout
 block main-content
     .container
         h1 Imotikar - Index Page (latest deals and/or statistics go here)
+        h2 Statistics:
+            #canvas-holder(style='width:30%')
+                canvas#chart-area(width='300', height='300' style="margin-left: 111%;")
