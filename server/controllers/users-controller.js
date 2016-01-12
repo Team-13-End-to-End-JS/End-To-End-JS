@@ -37,32 +37,6 @@
         logout: function(req, res, next) {
             auth.logout(req, res, next);
         },
-        promote: function(req, res) {
-            let userId = req.body.userId;
-            let role = req.body.toRole;
-
-            data.users
-                .promote(userId, role)
-                .then(function(dbResponse) {
-                    res.json(dbResponse);
-                }, function(err) {
-                    res.json(err);
-                });
-        },
-        demote: function(req, res) {
-            let userId = req.body.userId;
-            let role = req.body.fromRole;
-
-            data.users
-                .demote(userId, role)
-                .then(function(dbResponse) {
-                    res.json(dbResponse);
-                }, function(err) {
-                    console.log(err);
-                    res.json(err);
-                    res.end();
-                });
-        },
         all: function(req, res) {
             let options = req.body;
 
@@ -77,10 +51,9 @@
                 });
         },
         getCurrentUserProfile: function(req, res) {
-            console.log(req.user);
             let user = req.user;
 
-            res.render('account/privateProfile', {data: {
+            res.render('profile/privateProfile', {data: {
                 user: user
             }});
         },
@@ -91,7 +64,7 @@
                 .getUser(username)
                 .then(function(dbResponse) {
                     console.log(dbResponse);
-                    res.render('account/profile', {data: {
+                    res.render('profile/profile', {data: {
                         user: dbResponse
                     }});
                 }, function(err) {
@@ -99,6 +72,9 @@
                     res.locals.errors = err;
                     res.end();
                 });
+        },
+        changeProfileInformation: function(req, res) {
+
         }
     }
 }());
