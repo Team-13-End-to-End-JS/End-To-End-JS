@@ -20,7 +20,7 @@
         function post(url, postData) {
             var defered = $q.defer();
 
-            $http.post(baseUrl + '/' + url, postData, {  })
+            $http.post(baseUrl + '/' + url, postData)
                 .then(function (response) {
                     defered.resolve(response.data);
                 }, function (error) {

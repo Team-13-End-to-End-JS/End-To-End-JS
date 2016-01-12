@@ -154,6 +154,7 @@
                     res.status(200);
                     res.send("OK");
                 }, function(err) {
+                    console.log("Promote err " + err);
                     res.json(err);
                 });
         },
@@ -166,7 +167,9 @@
                     res.status(200);
                     res.send("OK");
                 }, function(err) {
-                    res.json(err);
+                    console.log("Demote err " + err);
+                    res.locals.errors = err;
+                    res.send(err);
                 });
         }
     }
