@@ -3,21 +3,22 @@
 
     let RealEstate = require('mongoose').model('RealEstate'),
         RealEstateType = require('mongoose').model('RealEstateType'),
-        ConstructionType = require('mongoose').model('ConstructionType'),
-        stats = {
+        ConstructionType = require('mongoose').model('ConstructionType');
+
+
+
+    function getStats(req, res) {
+        let stats = {
             offerTypes: {
-                forSale: 0,
-                forRent: 0
+                'For Sale': 0,
+                'For Rent': 0
             },
             realEstateTypes: {},
             constructionTypes: {}
         },
-        realEstateTypes,
-        constructionTypes,
-        helper = false;
-
-
-    function getStats(req, res) {
+            realEstateTypes,
+            constructionTypes,
+            helper = false;
 
         RealEstateType.find({}).exec(function (err, collection) {
             if(err) {
@@ -43,11 +44,11 @@
                             var realEstate = realEstates[i];
 
                             if(realEstate.offerType === 'forSale') {
-                                stats.offerTypes.forSale++;
+                                stats.offerTypes['For Rent']++;
                             }
 
                             if(realEstate.offerType === 'forRent') {
-                                stats.offerTypes.forRent++;
+                                stats.offerTypes['For Sale']++;
                             }
 
                             if(stats.realEstateTypes[realEstate.realEstateType] === undefined) {
