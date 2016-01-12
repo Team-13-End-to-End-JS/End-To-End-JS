@@ -13,17 +13,17 @@ block main-content
                 div.text-center
                     ul.pagination
                         li
-                            a(href="?page=" + prevPage) <<
+                            a(href="?page=" + prevPage) «
                         if(prevPage !== data.page)
                             li
                                 a(href="?page=" + prevPage)= prevPage
-                        li
+                        li.active
                             a(href="javascript:;")= data.page
                         if(maxPage != data.page)
                             li
                                 a(href="?page=" + nextPage)= nextPage
                             li
-                                a(href="?page=" + nextPage) >>
+                                a(href="?page=" + nextPage) »
                 table.table.table-hover.table-condensed
                     thead
                         tr
@@ -50,17 +50,17 @@ block main-content
                 div.text-center
                     ul.pagination
                         li
-                            a(href="?page=" + prevPage) <<
+                            a(href="?page=" + prevPage) «
                         if(prevPage !== data.page)
                             li
                                 a(href="?page=" + prevPage)= prevPage
-                        li
+                        li.active
                             a(href="javascript:;")= data.page
                         if(maxPage != data.page)
                             li
                                 a(href="?page=" + nextPage)= nextPage
                             li
-                                a(href="?page=" + nextPage) >>
+                                a(href="?page=" + nextPage) »
 
         div#promote-dialog.modal.fade(tabindex="-1" style="display: none;")
             div.modal-dialog

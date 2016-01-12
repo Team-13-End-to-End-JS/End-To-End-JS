@@ -53,8 +53,10 @@
         getCurrentUserProfile: function(req, res) {
             let user = req.user;
 
+
             res.render('profile/privateProfile', {data: {
-                user: user
+                user: user,
+                posts: []
             }});
         },
         getUserProfile: function(req,res) {
@@ -63,7 +65,6 @@
             data.users
                 .getUser(username)
                 .then(function(dbResponse) {
-                    console.log(dbResponse);
                     res.render('profile/profile', {data: {
                         user: dbResponse
                     }});
@@ -74,7 +75,18 @@
                 });
         },
         changeProfileInformation: function(req, res) {
+            let user = req.body;
 
+            data.users
+                .updateUser(user)
+                .then(function(dbResponse) {
+                    res.status(200);
+                    res.send("OK");
+                }, function(err) {
+                    console.log(err);
+                    res.locals.errors = err;
+                    res.end();
+                });
         }
     }
 }());

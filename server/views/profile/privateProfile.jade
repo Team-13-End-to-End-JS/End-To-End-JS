@@ -1,36 +1,57 @@
 extends ../shared/layout
 
 block main-content
-    .panel.panel-primary(ProfileController as vm)
-        h2.panel-heading Edit Personal Info - User !{data.user.username}
-
+    .panel.panel-primary(ng-controller="ProfileController as vm")
+        .panel-heading
+            h2 Edit Personal Info - User !{data.user.username}
         .panel-body
             div
-                .form-group
-                    label.col-lg-3.control-label Username:
+                h4 Role -
+                    span= " "
+                    if(data.user.roles.indexOf('admin') > -1)
+                        span.label.label-success Admin
+                    span= " "
+                    if(data.user.roles.indexOf('regular') < 0)
+                        span.label.label-danger Banned
+                    else
+                        span.label.label-primary
+                            |  Regular
+            div
+                .form-group.has-warning
+                    label.col-lg-4.col-md-4.control-label Username:
 
-                    .col-lg-8
-                        input.form-control(value= data.user.username, type='text' disabled)
+                    .col-lg-8.col-md-8
+                        input.form-control(type='text' ng-model="user.username" ng-init="user.username='" + data.user.username + "'" disabled)
 
-                .form-group
-                    label.col-lg-3.control-label First name:
+                .form-group.has-success
+                    label.col-lg-4.col-md-4.control-label First name:
 
-                    .col-lg-8
-                        input.form-control(type='text' ng-model="firstName" ng-init="firstName='" + data.user.firstName + "'")
+                    .col-lg-8.col-md-8
+                        input.form-control(type='text' ng-model="user.firstName" ng-init="user.firstName='" + data.user.firstName + "'" ng-required)
 
-                .form-group
-                    label.col-lg-3.control-label Last name:
+                .form-group.has-success
+                    label.col-lg-4.col-md-4.control-label Last name:
 
-                    .col-lg-8
-                        input.form-control(type='text' ng-model="lastName" ng-init="lastName='" + data.user.lastName + "'")
+                    .col-lg-8.col-md-8
+                        input.form-control(type='text' ng-model="user.lastName" ng-init="user.lastName='" + data.user.lastName + "'" ng-required)
 
-                .form-group
-                    label.col-lg-3.control-label Phone:
+                .form-group.has-success
+                    label.col-lg-4.col-md-4.control-label Phone:
 
-                    .col-lg-8
-                        input.form-control(type='text' ng-model="phoneNumber" ng-init="phoneNumber='" + data.user.phoneNumber + "'")
+                    .col-lg-8.col-md-8
+                        input.form-control(type='text' ng-model="user.phoneNumber" ng-init="user.phoneNumber='" + data.user.phoneNumber + "'")
 
                 .form-group
                     .col-md-8
-                        button(ng-click="vm.changeInfo" class="btn btn-primary") Save Changes
-                        a.btn.btn-default(href="/profile") Cancel
+                        button(ng-click="vm.changeInfo(user)").btn.btn-success Save Changes
+                        a.btn.btn-lg.btn-danger(href="/profile") Cancel
+        .panel-footer
+            p.text-center
+                a(href="/profile/" + data.user.username) How others see your profile
+
+    .panel.panel-success
+        .panel-heading
+            h2 Your posts - !{data.posts.length} Total
+        .panel-body
+            div
+                | TUK SA TI POSTOVETE
