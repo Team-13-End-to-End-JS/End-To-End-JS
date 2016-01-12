@@ -46,6 +46,15 @@
 
     }
 
+    function getForSaleCount() {
+        return RealEstate.find({offerType: 'foSale'});
+
+    }
+
+    function getForRentCount() {
+            return RealEstate.find({offerType: 'forRent'});
+    }
+
     function getPublic(options) {
 
         var from = 0, to = Number.MAX_VALUE;
@@ -71,7 +80,6 @@
 
         }
 
-
         if(!options.location) {
             delete options.location;
         }
@@ -89,14 +97,12 @@
         }
 
         console.log(options);
-
         // TODO: when admin part is ready to approove: find real estates by oprions
         let promise = new Promise(function(resolve, reject) {
             RealEstate
                 .find(options)
                 .sort('-createdOn')
                 .where('price').gt(from).lt(to)
-               // .where('offerType').in(offerTypes)
                 .exec(function(err, realEstates) {
                     if (err) {
                         reject(err);
@@ -114,6 +120,8 @@
 
     module.exports = {
         create: create,
+        getForSaleCount: getForSaleCount,
+        getForRentCount: getForRentCount,
         getById: getById,
         getPublic: getPublic,
         getPendingApproval: getPendingApproval,

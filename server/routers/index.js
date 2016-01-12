@@ -10,6 +10,7 @@
 
         require('./account-router')(app);
         require('./admin-router')(app);
+        require('./statistics-router')(app);
         require('./real-estate-router')(app);
         require('./home-router')(app);
     }
