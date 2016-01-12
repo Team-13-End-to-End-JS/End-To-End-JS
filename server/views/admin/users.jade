@@ -3,73 +3,79 @@ extends ../shared/layout
 block main-content
     - var nextPage = data.page + 1;
     - var prevPage = ((data.page - 1) > 0) ? data.page - 1 : data.page;
-
-    .panel.panel-default
-        h2.panel-heading
-            | User Control
-        .panel-body
-            div.text-center
-                ul.pagination
-                    li
-                        a(href="?page=" + prevPage) <<
-                    if(prevPage !== data.page)
+    - var entries = data.users.length;
+    - maxPage = Math.ceil(entries / 10) + 2;
+    div(ng-controller = "UsersController as vm")
+        .panel.panel-default
+            h2.panel-heading
+                | User Control
+            .panel-body
+                div.text-center
+                    ul.pagination
                         li
-                            a(href="?page=" + prevPage)= prevPage
-                    li
-                        a(href="/#")= data.page
-                    li
-                        a(href="?page=" + nextPage)= nextPage
-                    li
-                        a(href="?page=" + nextPage) >>
-            table.table.table-hover.table-condensed
-                thead
-                    tr
-                        th #
-                        th Username
-                        th First Name
-                        th Last Name
-                        th Roles
-                        th Promote/Demote
-                tbody
-                    each user in data.users
-                        tr(id=user._id)
-                            td= user._id
-                            td
-                                a(href="/profile/" + user.username)= user.username
-                            td= user.firstName
-                            td= user.lastName
-                            td= [ user.roles.join(', ') ]
-                            td
-                                button.btn.btn-sm.btn-success#btn-promote(data-toggle="modal" data-target="#promote-dialog") Promote
-                                button.btn.btn-sm.btn-danger#btn-demote(data-toggle="modal" data-target="#demote-dialog") Demote
-            div.text-center
-                ul.pagination
-                    li
-                        a(href="?page=" + prevPage) <<
-                    if(prevPage !== data.page)
+                            a(href="?page=" + prevPage) <<
+                        if(prevPage !== data.page)
+                            li
+                                a(href="?page=" + prevPage)= prevPage
                         li
-                            a(href="?page=" + prevPage)= prevPage
-                    li
-                        a(href="/#")= data.page
-                    li
-                        a(href="?page=" + nextPage)= nextPage
-                    li
-                        a(href="?page=" + nextPage) >>
+                            a(href="javascript:;")= data.page
+                        if(maxPage != data.page)
+                            li
+                                a(href="?page=" + nextPage)= nextPage
+                            li
+                                a(href="?page=" + nextPage) >>
+                table.table.table-hover.table-condensed
+                    thead
+                        tr
+                            th #
+                            th Username
+                            th First Name
+                            th Last Name
+                            th Roles
+                            th Promote/Demote
+                    tbody
+                        each user in data.users
+                            tr(id=user._id)
+                                td= user._id
+                                td
+                                    a(href="/profile/" + user.username)= user.username
+                                td= user.firstName
+                                td= user.lastName
+                                td= [ user.roles.join(', ') ]
+                                td
+                                    if(user.roles.length < 2)
+                                        button.btn.btn-sm.btn-success#btn-promote(data-toggle="modal" data-target="#promote-dialog" ng-click="vm.uId ='" + user._id+"'") Promote
+                                    if(user.roles.length >= 1)
+                                        button.btn.btn-sm.btn-danger#btn-demote(data-toggle="modal" data-target="#demote-dialog" ng-click="vm.uId ='" + user._id+"'") Demote
+                div.text-center
+                    ul.pagination
+                        li
+                            a(href="?page=" + prevPage) <<
+                        if(prevPage !== data.page)
+                            li
+                                a(href="?page=" + prevPage)= prevPage
+                        li
+                            a(href="javascript:;")= data.page
+                        if(maxPage != data.page)
+                            li
+                                a(href="?page=" + nextPage)= nextPage
+                            li
+                                a(href="?page=" + nextPage) >>
 
-    div#promote-dialog.modal.fade(tabindex="-1" style="display: none;")
-        div.modal-dialog
-            div.modal-content
-                div.modal-body.text-center
-                    p.text-success
-                        | Promote user to the role of:
-                    input.form-control.text-center(type="text" placeholder="admin / regular")
-                    button.btn.btn-lg.btn-primary.text-center Ok
+        div#promote-dialog.modal.fade(tabindex="-1" style="display: none;")
+            div.modal-dialog
+                div.modal-content
+                    div.modal-body.text-center
+                        p.text-success
+                            | Are you sure you want to promote the user?
+                        button.btn.btn-lg.btn-primary.text-center(ng-click="vm.promote()") Yes
+                        button.btn.btn-lg.btn-danger.text-center(data-dismiss="modal") No
 
-    div#demote-dialog.modal.fade(tabindex="-1" style="display: none;")
-        div.modal-dialog
-            div.modal-content
-                div.modal-body.text-center
-                    p.text-danger
-                        | Demote user from their role of:
-                    input.form-control.text-center(type="text" placeholder="admin / regular")
-                    button.btn.btn-lg.btn-danger.text-center Ok
+        div#demote-dialog.modal.fade(tabindex="-1" style="display: none;")
+            div.modal-dialog
+                div.modal-content
+                    div.modal-body.text-center
+                        p.text-danger
+                            | Are you sure you want to demote the user?
+                        button.btn.btn-lg.btn-danger.text-center(ng-click="vm.demote()") Yes
+                        button.btn.btn-lg.btn-primary.text-center(data-dismiss="modal") No

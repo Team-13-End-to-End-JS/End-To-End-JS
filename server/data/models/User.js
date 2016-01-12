@@ -14,6 +14,7 @@
                 validate: function (input) {
                     return /[0-9A-z]{6,}/.test(input);
                 },
+                required: true,
                 require: '{PATH} is required',
                 message: '{PATH} is not a valid username'
             },
@@ -22,6 +23,7 @@
                 validate: function (input) {
                     return /[A-z]/.test(input);
                 },
+                required: true,
                 require: '{PATH} is required',
                 message: '{PATH} your name contains illegal characters'
             },
@@ -30,12 +32,20 @@
                 validate: function (input) {
                     return /[A-z]/.test(input);
                 },
+                required: true,
                 require: '{PATH} is required',
                 message: '{PATH} your name contains illegal characters'
             },
             salt: String,
             hashPass: String,
             roles: [String],
+            phoneNumber: {
+                type: String,
+                validate: function (input) {
+                    return /[A-z\+0-9\-]{6,}/.test(input);
+                },
+                required: true
+            },
             posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'RealEstate' }]
         });
 

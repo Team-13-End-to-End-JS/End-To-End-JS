@@ -46,15 +46,26 @@
         return promise;
     }
 
-    function promoteUser(userId, role) {
+    function promoteUser(userId) {
         let promise = new Promise(function(resolve, reject) {
             User.findOne({_id: userId}, function(err, user) {
                 if (err) {
                     return reject(err);
                 }
 
-                if (VALID_ROLES.indexOf(role) > -1) {
-                    user.roles.push(role);
+                let roles = user.roles;
+
+                if (roles.indexOf('regular') < 0) {
+                    user.roles.push('regular');
+                    user.save(function(dbErr) {
+                        if(dbErr) {
+                            return reject('An error occurred while updating the User entry');
+                        } else {
+                            resolve(user);
+                        }
+                    });
+                } else if(roles.indexOf('admin') < 0) {
+                    user.roles.push('admin');
                     user.save(function(dbErr) {
                         if(dbErr) {
                             return reject('An error occurred while updating the User entry');
@@ -71,16 +82,18 @@
         return promise;
     }
 
-    function demoteUser(userId, role) {
+    function demoteUser(userId) {
         let promise = new Promise(function(resolve, reject) {
             User.findOne({_id: userId}, function(err, user) {
                 if (err) {
                     return reject(err);
                 }
 
-                let roleIndex = VALID_ROLES.indexOf(role);
-                if (roleIndex > - 1 && user.roles.indexOf(role) > -1) {
-                    user.roles.splice(roleIndex, 1);
+                let roles = user.roles;
+                let highestRoleIndex = roles.indexOf('admin') > - 1 ? roles.indexOf('admin') : roles.indexOf('regular');
+
+                if (highestRoleIndex > -1) {
+                    user.roles.splice(highestRoleIndex, 1);
                     user.save(function(dbErr) {
                         if(dbErr) {
                             return reject('An error occurred while updating the User entry');

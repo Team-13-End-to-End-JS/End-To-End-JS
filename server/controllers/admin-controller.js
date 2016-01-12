@@ -4,6 +4,15 @@
     let data = require('../data/data');
     let auth = require('../config/auth');
 
+    function escapeHTML (unsafe_str) {
+        return unsafe_str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\"/g, '&quot;')
+            .replace(/\'/g, '&#39;');
+    }
+
     module.exports = {
         getContentControl: function(req, res) {
             let ret = data.realEstateTypes;
@@ -71,7 +80,7 @@
                 });
         },
         addTypeContent: function(req, res) {
-            let typeName = req.body.name;
+            let typeName = escapeHTML(req.body.name);
 
             data.realEstateTypes
                 .add(typeName)
@@ -82,7 +91,7 @@
                 });
         },
         addConstructionContent: function(req, res) {
-            let constrName = req.body.name;
+            let constrName = escapeHTML(req.body.name);
 
             data.constructionTypes
                 .add(constrName)
@@ -93,7 +102,7 @@
                 });
         },
         addLocationContent: function(req, res) {
-            let locName = req.body.name;
+            let locName = escapeHTML(req.body.name);
 
             data.locations
                 .add(locName)
@@ -137,25 +146,25 @@
                 });
         },
         promoteUser: function(req, res) {
-            let userId = req.body.userId;
-            let role = req.body.toRole;
+            let userId = req.params["id"];
 
             data.users
-                .promote(userId, role)
+                .promote(userId)
                 .then(function(dbResponse) {
-                    res.json(dbResponse);
+                    res.status(200);
+                    res.send("OK");
                 }, function(err) {
                     res.json(err);
                 });
         },
         demoteUser: function(req, res) {
-            let userId = req.body.userId;
-            let role = req.body.fromRole;
+            let userId = req.params["id"];
 
             data.users
-                .demote(userId, role)
+                .demote(userId)
                 .then(function(dbResponse) {
-                    res.json(dbResponse);
+                    res.status(200);
+                    res.send("OK");
                 }, function(err) {
                     res.json(err);
                 });
