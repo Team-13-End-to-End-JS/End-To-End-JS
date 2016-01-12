@@ -19,7 +19,6 @@
                 return;
             }
 
-
             if (collection.length === 0) {
                 RealEstateType.create({types: ['2-rooms', '3-rooms', 'n-rooms', 'Office', 'House', 'Other']});
             }
