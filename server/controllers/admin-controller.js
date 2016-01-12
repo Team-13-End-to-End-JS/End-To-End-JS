@@ -113,11 +113,51 @@
                 });
         },
         getPendingPosts: function(req, res) {
-            res.render('admin/pending');
+            let pageSize = 10;
+            let page = (req.query.page != undefined && +req.query.page > 0) ? +req.query.page : 1;
+
+            data.realEstates
+                .getPendingApproval()
+                .then(function(dbResponse) {
+                    let posts = dbResponse.slice((page-1)*pageSize, page*pageSize);
+
+                    res.render('admin/pending', { data: {
+                        posts: posts,
+                        page: page
+                    }});
+                }, function(err) {
+                    console.log(err);
+                    res.locals.errors = err;
+                    res.redirect('/admin/pending');
+                });
         },
         updatePendingPost: function(req, res) {
-            res.status(404);
-            res.end();
+            let approved = req.body.approved;
+            let id = req.params["id"];
+
+            if (approved) {
+                data.realEstates
+                    .approvePost(id)
+                    .then(function(dbResponse) {
+                        res.status(200);
+                        res.send("OK");
+                    }, function(err) {
+                        console.log("approving post " + err);
+                        res.locals.errors = err;
+                        res.send(err);
+                    });
+            } else {
+                data.realEstates
+                    .removePost(id)
+                    .then(function(dbResponse) {
+                        res.status(200);
+                        res.send("OK");
+                    }, function(err) {
+                        console.log("removing post " + err);
+                        res.locals.errors = err;
+                        res.send(err);
+                    });
+            }
         },
         getAllPosts: function(req, res) {
             res.render('admin/posts');

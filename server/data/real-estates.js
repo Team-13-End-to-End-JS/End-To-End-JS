@@ -22,6 +22,7 @@
         return RealEstate.create(newRealEstate, function(err, createdRealEstate) {
             if (err) {
                 console.log(err);
+                reject(err);
             }
 
             createdRealEstate.save();
@@ -43,7 +44,19 @@
     }
 
     function getPendingApproval() {
+        let promise = new Promise(function(resolve, reject) {
+            RealEstate.find({isApproved: false})
+                .populate('_user')
+                .exec(function(err, realEstates) {
+                if (err) {
+                    reject(err);
+                }
 
+                resolve(realEstates);
+            });
+        });
+
+        return promise;
     }
 
     function getForSaleCount() {
@@ -101,6 +114,7 @@
         let promise = new Promise(function(resolve, reject) {
             RealEstate
                 .find(options)
+                .populate('_user')
                 .sort('-createdOn')
                 .where('price').gt(from).lt(to)
                 .exec(function(err, realEstates) {
@@ -118,8 +132,80 @@
     function getAll() {
     }
 
+    function update(post) {
+        let promise = new Promise(function(resolve, reject) {
+            RealEstate
+                .findOne({_id: post._id}, function(err, realEstate) {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    realEstate.price = post.price;
+                    realEstate.title = post.title;
+                    realEstate.description = post.description;
+
+                    realEstate.save(function(dbErr) {
+                        if (dbErr) {
+                            return reject(dbErr);
+                        }
+
+                        resolve(realEstate);
+                    });
+                });
+        });
+
+        return promise;
+    }
+
+    function approvePost(id) {
+        let promise = new Promise(function(resolve, reject) {
+            RealEstate
+                .findOne({_id: id}, function(err, realEstate) {
+                    if (err) {
+                        return reject(err);
+                    }
+                    console.log(id);
+                    realEstate.isApproved = true;
+
+                    realEstate.save(function(dbErr) {
+                        if (dbErr) {
+                            return reject(dbErr);
+                        }
+
+                        resolve(realEstate);
+                    });
+                });
+        });
+
+        return promise;
+    }
+
+    function remove(id) {
+        let promise = new Promise(function(resolve, reject) {
+            RealEstate
+                .findOne({_id: id}, function(err, realEstate) {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    realEstate.remove(function(dbErr) {
+                        if (dbErr) {
+                            return reject(dbErr);
+                        }
+
+                        resolve(realEstate);
+                    });
+                });
+        });
+
+        return promise;
+    }
+
     module.exports = {
         create: create,
+        updatePost: update,
+        removePost: remove,
+        approvePost: approvePost,
         getForSaleCount: getForSaleCount,
         getForRentCount: getForRentCount,
         getById: getById,
