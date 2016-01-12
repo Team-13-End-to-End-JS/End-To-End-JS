@@ -11,9 +11,9 @@
         .get('/login', controllers.users.getLogin)
         .post('/login', controllers.users.login)
         .get('/logout', auth.isAuthenticated, controllers.users.logout)
-        .get('/profile', controllers.users.getCurrentUserProfile)
-        .get('/profile/:username', controllers.users.getUserProfile);
-
+        .get('/profile', auth.isAuthenticated, controllers.users.getCurrentUserProfile)
+        .get('/profile/:username', auth.isAuthenticated, controllers.users.getUserProfile)
+        .post('/profile/edit', auth.isAuthenticated, controllers.users.changeProfileInformation);
 
     module.exports = function(app) {
         app.use('/', router);
