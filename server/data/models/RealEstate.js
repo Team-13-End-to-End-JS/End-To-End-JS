@@ -73,7 +73,7 @@
             },
             image: {
                 type: String,
-                defaut: 'http://www.red-river-nm.com/custimages/RealEstate(1).jpg'
+                default: 'http://www.red-river-nm.com/custimages/RealEstate(1).jpg'
             },
             createdOn: {
                 type: Date
