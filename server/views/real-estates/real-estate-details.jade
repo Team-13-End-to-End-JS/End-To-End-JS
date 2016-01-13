@@ -17,6 +17,11 @@ block main-content
                 .col-md-5
                     h3.text-center Description
                     p.lead= realEstate.description
+                    p
+                        em= '- Contact: '
+                            a(href='/profile/' + realEstate._user.username)= realEstate._user.username
+                        br
+                        em= '- Phone: ' + realEstate._user.phoneNumber
             br
             .row
                 .col-md-4
@@ -45,4 +50,3 @@ block main-content
                     strong= 'Price: '
                     br
                     em= realEstate.price
-

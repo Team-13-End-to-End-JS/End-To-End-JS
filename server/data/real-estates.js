@@ -31,7 +31,9 @@
 
     function getById(id) {
        let promise = new Promise(function(resolve, reject) {
-           RealEstate.findById(id, function(err, realEstate) {
+           RealEstate.findById(id)
+               .populate('_user')
+               .exec(function(err, realEstate) {
                 if (err) {
                     reject(err);
                 }
@@ -69,6 +71,7 @@
     }
 
     function getPublic(options) {
+
 
         var from = 0, to = Number.MAX_VALUE;
 
@@ -109,6 +112,8 @@
             delete options.offerType;
         }
 
+        options.isApproved = true;
+        console.log(options)
         // TODO: when admin part is ready to approove: find real estates by oprions
         let promise = new Promise(function(resolve, reject) {
             RealEstate
