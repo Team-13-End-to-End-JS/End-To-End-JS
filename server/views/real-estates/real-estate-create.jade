@@ -7,7 +7,7 @@ block main-content
                 errors
         .col-md-12
             .well
-                form(method="post", action="", class='form-horizontal' name="realEstateCreateForm")
+                form(method="post", action="", class='form-horizontal' name="realEstateCreateForm" enctype="multipart/form-data")
                     fieldset
                         legend Make an offer {{offerType}}
                         .form-group
@@ -39,7 +39,10 @@ block main-content
                                         input(type="radio" name="offerType" id="offerTypeRent" value="forRent" ng-model="offerType")
                                         span.circle
                                         span.check
-
+                        .form-group
+                            label(for="image", class='col-md-2 control-label') Upload image
+                            .col-md-10
+                                input(id="image" class="form-control" type="file" name="image-file")
                         .form-group
                             label(for="price", class='col-md-2 control-label') Price
                             .col-md-10
@@ -48,11 +51,6 @@ block main-content
                                     | Not a valid number!
                                 span(ng-show="realEstateCreateForm.quadrature.$error.min")
                                     | Min sale price 0
-                        .form-group
-                            label(for="url", class='col-md-2 control-label') Url
-                            .col-md-10
-                                input(id="url" class="form-control" type="text" name="url" placeholder="Url" ng-model="realEstate.url")
-
                         .form-group
                             label(for="quadrature", class='col-md-2 control-label') Quadrature
                             .col-md-10

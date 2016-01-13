@@ -12,7 +12,7 @@
             price: +realEstate.price,
             quadrature: +realEstate.quadrature,
             year: +realEstate.year,
-            url: realEstate.url,
+            image: realEstate.image,
             location: realEstate.location,
             constructionType: realEstate.constructionType,
             realEstateType: realEstate.realEstateType,
@@ -109,7 +109,6 @@
             delete options.offerType;
         }
 
-        console.log(options);
         // TODO: when admin part is ready to approove: find real estates by oprions
         let promise = new Promise(function(resolve, reject) {
             RealEstate

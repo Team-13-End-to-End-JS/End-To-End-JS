@@ -15,7 +15,4 @@ block main-content
         p= 'Year: ' + realEstate.year
         p= 'Construction Type: ' + realEstate.constructionType
         p= 'Type: ' + realEstate.realEstateType
-        if realEstate.url !== undefined
-            img(src=realEstate.url alt="" height="100" width="100")
-        else
-            img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRavPM1Z_Vrg4E0T7WmHI6jaNO0XYJqp3549G_nFHqW6l49LS3S" alt="Smiley face" height="100" width="100")
+        img.img-thumbnail(src=realEstate.image)

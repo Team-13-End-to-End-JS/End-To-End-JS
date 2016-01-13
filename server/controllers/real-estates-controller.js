@@ -32,6 +32,11 @@
         req.body.createdOn = new Date();
         req.body['_user'] = req.user['_id'];
 
+        if (req.file) {
+            req.body.image = req.file.path.substr('public'.length);
+            console.log(req.body.image);
+        }
+
         data.realEstates
             .create(req.body)
             .then(function(dbResponse) {
