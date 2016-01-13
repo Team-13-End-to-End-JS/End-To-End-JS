@@ -10,6 +10,11 @@
             db: 'mongodb://127.0.0.1/Imotikar',
             port: process.env.PORT || 6969
         },
+        testing: {
+            rootPath: rootPath,
+            db: 'mongodb://127.0.0.1/Imotikar-testing',
+            port: process.env.PORT || 6969
+        },
         production: {
             rootPath: rootPath,
             db: 'mongodb://imotikar:imotikar@ds037005.mongolab.com:37005/imotikar13',

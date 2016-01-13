@@ -38,18 +38,18 @@
 
                     }, function(err) {
                         console.log(err);
-                        res.locals.errors = err;
+                        res.session.error = err;
                         res.render('/shared/badRequest');
                     });
                 }, function(err) {
                     console.log(err);
-                    res.locals.errors = err;
+                    res.session.error = err;
                     res.render('/shared/badRequest');
                 });
 
             }, function(err) {
                 console.log(err);
-                res.locals.errors = err;
+                res.session.error = err;
                 res.render('/shared/badRequest');
             });
         },
@@ -62,6 +62,10 @@
                     res.redirect('/admin/content');
                 }, function(err) {
                     console.log(err);
+
+                    res.session.error = err;
+                    res.status(403);
+                    res.end();
                 });
         },
         removeTypeContentControl: function(req, res) {
@@ -72,6 +76,9 @@
                 .then(function(dbResult) {
                     res.redirect('/admin/content');
                 }, function(err) {
+                    res.session.error = err;
+                    res.status(403);
+                    res.end();
                     console.log(err);
                 });
         },
@@ -84,6 +91,9 @@
                     res.redirect('/admin/content');
                 }, function(err) {
                     console.log(err);
+                    res.session.error = err;
+                    res.status(403);
+                    res.end();
                 });
         },
         addTypeContent: function(req, res) {
@@ -94,7 +104,9 @@
                 .then(function(result) {
                     res.redirect('/admin/content');
                 }, function(err) {
-                    console.log(err)
+                    console.log(err);
+                    res.session.error = err;
+                    res.redirect(403, '/admin/content');
                 });
         },
         addConstructionContent: function(req, res) {
@@ -105,7 +117,10 @@
                 .then(function(result) {
                     res.redirect('/admin/content');
                 }, function(err) {
-                    console.log(err)
+                    console.log(err);
+                    res.session.error = err;
+                    res.status(403);
+                    res.redirect(403, '/admin/content');
                 });
         },
         addLocationContent: function(req, res) {
@@ -116,7 +131,10 @@
                 .then(function(result) {
                     res.redirect('/admin/content');
                 }, function(err) {
-                    console.log(err)
+                    console.log(err);
+                    res.session.error = err;
+                    res.status(403);
+                    res.redirect(403, '/admin/content');
                 });
         },
         getPendingPosts: function(req, res) {
@@ -134,7 +152,7 @@
                     }});
                 }, function(err) {
                     console.log(err);
-                    res.locals.errors = err;
+                    res.session.error = err;
                     res.redirect('/admin/pending');
                 });
         },
@@ -150,7 +168,7 @@
                         res.send("OK");
                     }, function(err) {
                         console.log("approving post " + err);
-                        res.locals.errors = err;
+                        res.session.error = err;
                         res.send(err);
                     });
             } else {
@@ -161,7 +179,7 @@
                         res.send("OK");
                     }, function(err) {
                         console.log("removing post " + err);
-                        res.locals.errors = err;
+                        res.session.error = err;
                         res.send(err);
                     });
             }
@@ -186,7 +204,7 @@
                         users: users,
                         page: page
                     }
-                    })
+                    });
                 }, function(err) {
                     console.log(err);
                     res.json(err);
@@ -215,7 +233,7 @@
                     res.send("OK");
                 }, function(err) {
                     console.log("Demote err " + err);
-                    res.locals.errors = err;
+                    res.session.error = err;
                     res.send(err);
                 });
         },
@@ -229,7 +247,7 @@
                     res.redirect('/admin/content');
                 }, function(err) {
                     console.log(err);
-                    res.locals.errors = err;
+                    res.session.error = err;
                     res.end();
                 });
         }
