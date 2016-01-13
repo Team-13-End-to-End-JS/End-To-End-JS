@@ -88,10 +88,26 @@ block main-content
                                     span.glyphicon.glyphicon-trash
                                 form(method="POST", action="/admin/content/construction/" + index, id="form-rm-constr-" + index).hidden
 
+    .panel.panel-primary
+        .panel-heading
+            | About Us Page Editor
+        .panel-body
+            form(method="post" action="/admin/content/aboutUs")
+                textarea#editor(rows="10" cols="30" style="height:440px" name="content")
+                    | !{data.aboutUs}
+                button.btn.btn-success.btn-block Save Changes
+
     script.
         $(function() {
+            $("#editor").kendoEditor({
+                encoded: false,
+                resizable: {
+                    content: true,
+                    toolbar: true
+                }
+            });
+
             $('#btn-add-type').on('click', function (e) {
-                console.log("Pesho");
                 $('#toggle-add-type').toggle();
             })
 

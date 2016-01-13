@@ -11,6 +11,7 @@
         .get('/', function(req, res) {
             res.render('index');
         })
+        .get('/about', controllers.pages.getAboutUsPage)
         .get('/unathorized', function(req, res) {
             res.status(401);
             res.render('shared/unathorized');

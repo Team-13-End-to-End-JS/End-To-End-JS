@@ -5,6 +5,7 @@
         UsersModel = require('../models/User'),
         LocationModel = require('../models/Location'),
         RealEstateTypeModel = require('../models/RealEstateType'),
+        AboutUsPage = require('../models/AboutUsPage'),
         ConstructionTypeModel = require('../models/ConstructionType');
 
     module.exports.init = function () {
@@ -14,5 +15,6 @@
         RealEstateTypeModel.init();
         LocationModel.init();
         ConstructionTypeModel.init();
+        AboutUsPage.init();
     };
 }());

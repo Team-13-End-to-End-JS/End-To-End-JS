@@ -8,6 +8,7 @@
     let constructionTypes = require('./construction-type-controller');
     let realEstateTypes = require('./real-estate-type-controller');
     let statistics = require('./statistics-controller');
+    let pages = require('./pages-controller');
 
     module.exports = {
         users: users,
@@ -16,6 +17,7 @@
         admin: admin,
         locations: locations,
         constructionTypes: constructionTypes,
-        realEstateTypes: realEstateTypes
+        realEstateTypes: realEstateTypes,
+        pages: pages
     }
 }());

@@ -13,6 +13,7 @@
         .post('/content/construction', controllers.admin.addConstructionContent)
         .post('/content/locations', controllers.admin.addLocationContent)
         .post('/content/types', controllers.admin.addTypeContent)
+        .post('/content/aboutUs', controllers.admin.editAboutUsPage)
         .get('/pending', controllers.admin.getPendingPosts)
         .put('/pending/:id', controllers.admin.updatePendingPost)
         .get('/posts', controllers.admin.getAllPosts)
