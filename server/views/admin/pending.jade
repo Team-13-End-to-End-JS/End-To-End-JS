@@ -16,17 +16,18 @@ block main-content
             table.table.table-hover.table-condensed
                 thead
                     tr
-                        th Posted By
-                        th Offer Title
+                        th <span class="glyphicon glyphicon-user"> </span> Posted By
+                        th <span class="glyphicon glyphicon-link"> </span> Offer Title
                         th Real Estate Type
-                        th Location
+                        th <span class="glyphicon glyphicon-map-marker"> </span> Location
                         th Sqm
-                        th Price
+                        th <span class="glyphicon glyphicon-euro"> </span> Price
                         th Approve?
                 tbody
                     each post in data.posts
                         tr(id=post._id)
-                            td= post._user.username
+                            td
+                                a(href="/profile/" + post._user.username)=  post._user.username
                             td
                                 a(href="/realestates/details/" + post.title + "/" + post._id)= post.title
                             td= post.offerType
@@ -37,7 +38,7 @@ block main-content
                                 .btn-group-raised
                                     button.btn.btn-success.glyphicon.glyphicon-thumbs-up(ng-click="vm.approve(true, '" + post._id + "')")
                                     button.btn.btn-danger.glyphicon.glyphicon-thumbs-down(ng-click="vm.approve(false, '" + post._id + "')")
-        .panel-footer
+        .panel-footer.text-center
             ul.pagination
                 li
                     a(href="?page=" + prevPage) «

@@ -1,27 +1,69 @@
 extends ../shared/layout
 
 block main-content
-    .panel.panel-default
+    - var nextPage = data.page + 1;
+    - var prevPage = ((data.page - 1) > 0) ? data.page - 1 : data.page;
+    - var entries = data.posts.length;
+    - maxPage = Math.ceil(entries / 10) + 2;
+
+    h2
+        | Profile Page
+
+    .panel.panel-primary
         .panel-heading
-            h2 #{data.user.username}'s Profile
+            h2 <strong>#{data.user.username}</strong>'s Profile
         .panel-body.text-center(style="font-size: 1.5em")
-            h4.text-center User Profile of #{data.user.username}
-            .row.text-center
+            h4.text-center User Profile of <strong>#{data.user.username}</strong>
+            .row.text-center(style="padding: 10px")
                 .col-md-6.col-lg-6.col-sm-6.label.label-primary First Name
                 .col-md-6.col-lg-6.col-sm-6.label.label-success= data.user.firstName
-            .row
+            .row(style="padding: 10px")
                 .col-md-6.col-lg-6.col-sm-6.label.label-primary Last Name
                 .col-md-6.col-lg-6.col-sm-6.label.label-success= data.user.lastName
-            .row
+            .row(style="padding: 10px")
                 .col-md-6.col-lg-6.col-sm-6.label.label-primary Contact Number
                 .col-md-6.col-lg-6.col-sm-6.label.label-success= data.user.phoneNumber
             hr
-            .row
-                .panel.panel-default
-                    .panel-heading
-                        h4 User's offers
-                    .panel-body.text-center
-                        | TUK SA MI POSTOVETE
 
+    .panel.panel-success
+        .panel-heading
+            h4 User's offers
+        .panel-body
+            table.table.table-hover.table-condensed
+                thead
+                    tr
+                        th <span class="glyphicon glyphicon-link"> </span> Offer Title
+                        th Real Estate Type
+                        th <span class="glyphicon glyphicon-map-marker"> </span> Location
+                        th Construction
+                        th Sqm
+                        th <span class="glyphicon glyphicon-euro"> </span> Price
+                        th Year
+                tbody
+                    each post in data.posts
+                        tr(id=post._id)
+                            td
+                                a(href="/realestates/details/" + post.title + "/" + post._id)= post.title
+                            td= post.offerType
+                            td= post.location
+                            td= post.constructionType
+                            td= post.quadrature
+                            td= post.price
+                            td= post.year
         .panel-footer.text-center
-            | The user's details are private. Please do not disclose them with unathorized users. Respect privacy. Thank you!
+            ul.pagination
+                li
+                    a(href="?page=" + prevPage) «
+                if(prevPage !== data.page)
+                    li
+                        a(href="?page=" + prevPage)= prevPage
+                li.active
+                    a(href="javascript:;")= data.page
+                if(maxPage != data.page)
+                    li
+                        a(href="?page=" + nextPage)= nextPage
+                    li
+                        a(href="?page=" + nextPage) »
+
+    .panel-footer.text-center
+        | This user's details are private. Please do not disclose them with unathorized users. Respect privacy. Thank you!
