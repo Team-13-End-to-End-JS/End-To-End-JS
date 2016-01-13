@@ -18,6 +18,7 @@
             let ret = data.realEstateTypes;
             let rec = data.constructionTypes;
             let rel = data.locations;
+            let aboutUs = data.aboutUsPage;
             let options = {};
 
             ret.all().then(function(dbResultRet) {
@@ -27,7 +28,13 @@
                         options.realEstateLocations = dbResultRel;
                         options.realEstateConstruction = dbResultRec;
 
-                        res.render('admin/content', {data: options});
+                        aboutUs.getPage().then(function(dbResultPage) {
+                            options.aboutUs = dbResultPage.content;
+                            res.render('admin/content', {data: options});
+                        }, function(err) {
+                            console.log(err);
+                            res.render('admin/content', {data: options});
+                        });
 
                     }, function(err) {
                         console.log(err);
@@ -210,6 +217,20 @@
                     console.log("Demote err " + err);
                     res.locals.errors = err;
                     res.send(err);
+                });
+        },
+        editAboutUsPage: function(req, res) {
+            let content = req.body.content;
+
+            data.aboutUsPage
+                .editPage(content)
+                .then(function(dbResponse) {
+                    res.status(200);
+                    res.redirect('/admin/content');
+                }, function(err) {
+                    console.log(err);
+                    res.locals.errors = err;
+                    res.end();
                 });
         }
     }
