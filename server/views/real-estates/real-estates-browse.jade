@@ -62,35 +62,35 @@ block main-content
                                 button(type="submit" class="btn btn-primary") Browse
 
 
-    // RESULTS
-    .panel.panel-default
-        h2.panel-heading
-            | Real Estates
-        if pageData.realEstates
-            .panel-body
-                table.table.table-hover.table-condensed
-                    thead
-                        tr
-                            th Offer type
-                            th Title
-                            th Description
-                            th Price
-                            th Location
-                            th Type
-                            th Construction
-                    tbody
-                        each realEstate in pageData.realEstates
+        // RESULTS
+        .panel.panel-default
+            h2.panel-heading
+                | Results
+            if pageData.realEstates
+                .panel-body
+                    table.table.table-hover.table-condensed
+                        thead
                             tr
-                                if realEstate.offerType === 'forSale'
-                                    td For Sale
-                                else
-                                    td For Rent
-                                td
-                                    a(href="details/" + realEstate['title'] + '/' + realEstate['_id'])= realEstate.title
-                                td= realEstate.description
-                                td= '$ ' + realEstate.price
-                                td= realEstate.location
-                                td= realEstate.realEstateType
-                                td= realEstate.constructionType
-        else
-            .panel-body NO RESULTS
+                                th <span class="glyphicon glyphicon-link"> </span> Offer Title
+                                th Real Estate Type
+                                th <span class="glyphicon glyphicon-map-marker"> </span> Location
+                                th Construction
+                                th Sqm
+                                th <span class="glyphicon glyphicon-euro"> </span> Price
+                                th Construction
+                        tbody
+                            each realEstate in pageData.realEstates
+                                tr
+                                    td
+                                        a(href="details/" + realEstate['title'] + '/' + realEstate['_id'])= realEstate.title
+                                    if realEstate.offerType === 'forSale'
+                                        td For Sale
+                                    else
+                                        td For Rent
+                                    td= realEstate.location
+                                    td= realEstate.constructionType
+                                    td= realEstate.quadrature
+                                    td= realEstate.price
+                                    td= realEstate.year
+            else
+                .panel-body NO RESULTS

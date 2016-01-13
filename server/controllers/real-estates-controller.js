@@ -29,6 +29,12 @@
     }
 
     function create(req, res) {
+        if(req.body.isForSale === 'on') {
+            req.body.offerType = 'forSale';
+        } else {
+            req.body.offerType = 'forRent';
+        }
+
         req.body.createdOn = new Date();
         req.body['_user'] = req.user['_id'];
 

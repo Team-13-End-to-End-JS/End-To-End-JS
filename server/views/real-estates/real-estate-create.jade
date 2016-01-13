@@ -7,11 +7,16 @@ block main-content
         if errors
             .panel.panel-danger
                 errors
-        .col-md-12
+        .col-md-12.relative-poss
             .well
                 form(method="post", action="", class='form-horizontal' name="realEstateCreateForm" enctype="multipart/form-data")
                     fieldset
-                        legend Make an offer {{offerType}}
+                        legend
+                            input.absolute-poss(type="checkbox" name="isForSale" data-toggle="toggle" data-on="For Sale" data-off="For Rent")
+                        .form-group
+                            label(for="image", class='col-md-2 control-label') Upload image
+                            .col-md-10
+                                input(id="image" class="form-control" type="file" name="image-file")
                         .form-group
                             label(for="title", class='col-md-2 control-label') Title of the offer
                             .col-md-10
@@ -28,23 +33,6 @@ block main-content
                                     | Min. length is 5 characters
                                 span(ng-show="realEstateCreateForm.description.$error.maxlength")
                                     | Max. length is 500 characters
-                        .form-group
-                            label(class='col-md-2 control-label') Offer type
-                            .col-md-10
-                                .radio.radio-primary
-                                    label For Sale
-                                        input(type="radio" name="offerType" id="offerTypeSale" value="forSale" ng-model="offerType")
-                                        span.circle
-                                        span.check
-                                .radio.radio-primary
-                                    label For Rent
-                                        input(type="radio" name="offerType" id="offerTypeRent" value="forRent" ng-model="offerType")
-                                        span.circle
-                                        span.check
-                        .form-group
-                            label(for="image", class='col-md-2 control-label') Upload image
-                            .col-md-10
-                                input(id="image" class="form-control" type="file" name="image-file")
                         .form-group
                             label(for="price", class='col-md-2 control-label') Price
                             .col-md-10

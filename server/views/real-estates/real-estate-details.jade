@@ -3,7 +3,8 @@ extends ../shared/layout
 block main-content
     .panel.panel-default
         .panel-heading.text-center.relative-poss
-            h1(style="font-style: italic")= realEstate.title
+            h1
+                em= realEstate.title
             strong.absolute-poss
                 if realEstate.offerType === 'forSale'
                     | FOR SALE
@@ -19,7 +20,7 @@ block main-content
             br
             .row
                 .col-md-4
-                    strong= 'Type: '
+                    strong= 'Real Estate Type: '
                     br
                     em= realEstate.realEstateType
                 .col-md-4
@@ -35,7 +36,7 @@ block main-content
                 .col-md-4
                     strong= 'Quadrature: '
                     br
-                    em= realEstate.quadrature + ' m2'
+                    em= realEstate.quadrature
                 .col-md-4
                     strong= 'Year of construction: '
                     br
