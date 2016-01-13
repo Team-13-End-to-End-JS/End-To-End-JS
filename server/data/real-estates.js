@@ -132,6 +132,23 @@
     function getAll() {
     }
 
+    function getByUser(userId) {
+        let promise = new Promise(function(resolve, reject) {
+            RealEstate
+                .find({_user: userId })
+                .sort('-createdOn')
+                .exec(function(err, realEstates) {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    resolve(realEstates);
+                });
+        });
+
+        return promise;
+    }
+
     function update(post) {
         let promise = new Promise(function(resolve, reject) {
             RealEstate
@@ -211,6 +228,7 @@
         getById: getById,
         getPublic: getPublic,
         getPendingApproval: getPendingApproval,
-        getAll: getAll
+        getAll: getAll,
+        getByUser: getByUser
     };
 }());

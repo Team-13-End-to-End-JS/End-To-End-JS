@@ -9,45 +9,45 @@ html
         header.navbar.navbar-default
             .container
                 .navbar-header
-                    a.navbar-brand(href="/") IMOTikar
+                    a.navbar-brand(href="/") <strong>IMOTikar</strong>
                 .navbar-collapse.collapse
                     ul.nav.navbar-nav
                         li
-                            a(href="/") Home
+                            a(href="/") <span class="glyphicon glyphicon-home"> </span>  Home
                         if(currentUser && currentUser.roles.indexOf('regular') > -1)
                             li
-                                a(href="/realestates/post") Offer
+                                a(href="/realestates/post") <span class="glyphicon glyphicon-pencil"> </span> Offer
                         li
-                            a(href="/realestates/browse") Browse
+                            a(href="/realestates/browse") <span class="glyphicon glyphicon-search"> </span> Browse
                         li
-                            a(href="/aboutus") About Us
+                            a(href="/aboutus") <span class="glyphicon glyphicon-info-sign"> </span> About Us
                     ul.nav.navbar-nav.navbar-right
                         if(currentUser)
                             li
-                                a(href="/profile") Hi,
+                                a(href="/profile") Hello,
                                     span#currentUsername
                                         |  #{currentUser.username}
                             if(currentUser.roles.indexOf('admin') > -1)
                                 li.dropdown
-                                    a.dropdown-toggle(href="javascript:;" data-toggle="dropdown") Manage
+                                    a.dropdown-toggle(href="javascript:;" data-toggle="dropdown") <span class="glyphicon glyphicon-wrench"> </span> Manage
                                         b.caret
                                     ul.dropdown-menu
                                         li
-                                            a(href="/admin/users") Manage Users
+                                            a(href="/admin/users") <span class="glyphicon glyphicon-user"> </span> Manage Users
                                         li
-                                            a(href="/admin/pending") Pending Posts
+                                            a(href="/admin/pending") <span class="glyphicon glyphicon-list-alt"> </span> Pending Posts
                                         li
-                                            a(href="/admin/posts") Posts Control
+                                            a(href="/admin/posts") <span class="glyphicon glyphicon-flag"> </span> Posts Control
                                         li
-                                            a(href="/admin/content") Content Control
+                                            a(href="/admin/content") <span class="glyphicon glyphicon-book"> </span>`Content Control
                             li
-                                a(href="/logout") Logout
+                                a(href="/logout") <span class="glyphicon glyphicon-log-out"> </span> Logout
                         else
                             li
-                                a(href="/register") Register
+                                a(href="/register") <span class="glyphicon glyphicon-pencil"> </span> Register
                                     div
                             li
-                                a(href="/login") Login
+                                a(href="/login") <span class="glyphicon glyphicon-log-in"> </span> Login
                                     div
         .container
             if (errorMessage)

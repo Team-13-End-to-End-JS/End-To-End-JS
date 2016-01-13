@@ -53,25 +53,52 @@
         },
         getCurrentUserProfile: function(req, res) {
             let user = req.user;
+            let pageSize = 10;
+            let page = (req.query.page != undefined && +req.query.page > 0) ? +req.query.page : 1;
 
-            res.render('profile/privateProfile', {data: {
-                user: user,
-                posts: []
-            }});
+            data.realEstates.getByUser(user._id)
+                .then(function(dbResponse) {
+                    let posts = dbResponse.slice((page-1)*pageSize, page*pageSize);
+
+                    res.render('profile/privateProfile', {data: {
+                        user: user,
+                        posts: posts,
+                        page: page
+                    }});
+                }, function(err) {
+                    res.locals.errors = err;
+                    res.end();
+                });
         },
         getUserProfile: function(req,res) {
             let username = req.params['username'];
+            let pageSize = 10;
+            let page = (req.query.page != undefined && +req.query.page > 0) ? +req.query.page : 1;
 
             data.users
                 .getUser(username)
-                .then(function(dbResponse) {
-                    if (!dbResponse) {
+                .then(function(dbResponseUser) {
+                    if (!dbResponseUser) {
                         res.render('shared/404');
                     }
 
-                    res.render('profile/profile', {data: {
-                        user: dbResponse
-                    }});
+                    data.realEstates.getByUser(dbResponseUser._id)
+                        .then(function(dbResponsePosts) {
+                            let posts = dbResponsePosts.slice((page-1)*pageSize, page*pageSize);
+
+                            res.render('profile/profile', {data: {
+                                user: dbResponseUser,
+                                posts: posts,
+                                page: page
+                            }});
+                        }, function(err) {
+                            res.render('profile/profile', {data: {
+                                user: dbResponseUser,
+                                posts: {},
+                                page: page
+                            }});
+                        });
+
                 }, function(err) {
                     console.log(err);
                     res.locals.errors = err;
