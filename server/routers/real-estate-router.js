@@ -10,7 +10,6 @@
     let storage = multer.diskStorage({
         destination: './public/images',
         filename: function(req, file, cb) {
-            console.log(file);
             let ext = file.originalname.split('.')
                 .pop();
             cb(null, file.fieldname + '-' + Date.now() + '-' + uuid.v1() + '.' + ext);

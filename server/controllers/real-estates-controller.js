@@ -34,7 +34,6 @@
 
         if (req.file) {
             req.body.image = req.file.path.substr('public'.length);
-            console.log(req.body.image);
         }
 
         data.realEstates

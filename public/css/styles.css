@@ -1,0 +1,15 @@
+.relative-poss {
+    position: relative;
+}
+
+.absolute-poss {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: #009688;
+    font-size: 23px;
+}
+
+.real-estate-image {
+    width: 90%;
+}

@@ -1,18 +1,47 @@
 extends ../shared/layout
 
 block main-content
-    jumbotron
-        h1= 'Title: ' + realEstate.title
-        if realEstate.offerType === 'forRent'
-            h3
-                b For Rent
-        else
-            h3
-                b For Sale
-        p= 'Description: ' + realEstate.description
-        p= 'Created On: ' + moment(realEstate.createdOn).format("MMMM Do YYYY")
-        p= 'Location: ' + realEstate.location
-        p= 'Year: ' + realEstate.year
-        p= 'Construction Type: ' + realEstate.constructionType
-        p= 'Type: ' + realEstate.realEstateType
-        img.img-thumbnail(src=realEstate.image)
+    .panel.panel-default
+        .panel-heading.text-center.relative-poss
+            h1(style="font-style: italic")= realEstate.title
+            strong.absolute-poss
+                if realEstate.offerType === 'forSale'
+                    | FOR SALE
+                else
+                    | FOR RENT
+        .panel-body
+            .row
+                .col-md-7
+                    img.real-estate-image.img-thumbnail(src=realEstate.image)
+                .col-md-5
+                    h3.text-center Description
+                    p.lead= realEstate.description
+            br
+            .row
+                .col-md-4
+                    strong= 'Type: '
+                    br
+                    em= realEstate.realEstateType
+                .col-md-4
+                    strong= 'Construction: '
+                    br
+                    em= realEstate.constructionType
+                .col-md-4
+                    strong= 'Location: '
+                    br
+                    em= realEstate.location
+            br
+            .row
+                .col-md-4
+                    strong= 'Quadrature: '
+                    br
+                    em= realEstate.quadrature + ' m2'
+                .col-md-4
+                    strong= 'Year of construction: '
+                    br
+                    em= realEstate.year
+                .col-md-4
+                    strong= 'Price: '
+                    br
+                    em= realEstate.price
+
