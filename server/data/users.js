@@ -21,7 +21,8 @@
         let promise = new Promise(function(resolve, reject) {
             User.create(newUser, function(err, createdUser) {
                 if (err) {
-                    return reject(err);
+                    reject(err);
+                    return promise;
                 }
 
                 resolve(createdUser);

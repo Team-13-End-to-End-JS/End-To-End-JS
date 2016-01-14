@@ -2,7 +2,7 @@
     'use strict';
 
     let router = require('express').Router(),
-        controllers = require('../controllers/index');
+        controllers = require('../controllers/index')(require('../data/data'));
 
     router
         .get('/statistics', controllers.statistics.getStats);

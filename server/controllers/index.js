@@ -7,11 +7,13 @@
     let statistics = require('./statistics-controller');
     let pages = require('./pages-controller');
 
-    module.exports = {
-        users: users,
-        realEstates: realEstates,
-        statistics: statistics,
-        admin: admin,
-        pages: pages
+    module.exports = function(data) {
+        return {
+            users: users(data),
+            realEstates: realEstates,
+            statistics: statistics,
+            admin: admin(data),
+            pages: pages
+        }
     }
 }());
