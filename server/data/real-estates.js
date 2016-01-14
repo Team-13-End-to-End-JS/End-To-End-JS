@@ -61,18 +61,38 @@
         return promise;
     }
 
-    function getForSaleCount() {
-        return RealEstate.find({offerType: 'foSale'});
+    function getTop() {
+        let promise = new Promise(function(resolve, reject) {
+            RealEstate.find({offerType: 'forSale', isApproved: true})
+                .sort('-createdOn')
+                .limit(4)
+                .exec(function(err, realEstatesForSale) {
+                    if (err) {
+                        reject(err);
+                    }
 
-    }
+                    RealEstate.find({offerType: 'forRent', isApproved: true})
+                        .sort('-createdOn')
+                        .limit(4)
+                        .exec(function (err, realEstatesForRent) {
+                            if(err) {
+                                reject(err);
+                            }
 
-    function getForRentCount() {
-            return RealEstate.find({offerType: 'forRent'});
+                            let topRealEstates = {
+                                forSale: realEstatesForSale,
+                                forRent: realEstatesForRent
+                            };
+
+                            resolve(topRealEstates);
+                        });
+                });
+        });
+
+        return promise;
     }
 
     function getPublic(options) {
-
-
         var from = 0, to = Number.MAX_VALUE;
 
         if(Object.keys(options).length !== 0) {
@@ -113,8 +133,6 @@
         }
 
         options.isApproved = true;
-        console.log(options)
-        // TODO: when admin part is ready to approove: find real estates by oprions
         let promise = new Promise(function(resolve, reject) {
             RealEstate
                 .find(options)
@@ -131,9 +149,6 @@
         });
 
         return promise;
-    }
-
-    function getAll() {
     }
 
     function getByUser(userId) {
@@ -224,15 +239,13 @@
 
     module.exports = {
         create: create,
+        getTop: getTop,
         updatePost: update,
         removePost: remove,
         approvePost: approvePost,
-        getForSaleCount: getForSaleCount,
-        getForRentCount: getForRentCount,
         getById: getById,
         getPublic: getPublic,
         getPendingApproval: getPendingApproval,
-        getAll: getAll,
         getByUser: getByUser
     };
 }());

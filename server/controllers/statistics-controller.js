@@ -5,8 +5,6 @@
         RealEstateType = require('mongoose').model('RealEstateType'),
         ConstructionType = require('mongoose').model('ConstructionType');
 
-
-
     function getStats(req, res) {
         let stats = {
             offerTypes: {

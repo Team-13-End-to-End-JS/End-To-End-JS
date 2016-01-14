@@ -8,9 +8,7 @@
     router.get('/partials/:partialArea/:partialName', function(req, res) {
             res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)
         })
-        .get('/', function(req, res) {
-            res.render('index');
-        })
+        .get('/', controllers.realEstates.getTop)
         .get('/about', controllers.pages.getAboutUsPage)
         .get('/unathorized', function(req, res) {
             res.status(401);

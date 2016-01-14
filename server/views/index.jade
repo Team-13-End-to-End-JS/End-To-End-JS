@@ -1,18 +1,61 @@
 extends shared/layout
 block main-content
     .container
-        h1 Imotikar
-        h2.text-center
-            strong STATISTICS
-        .container.text-center
-            h3 Offer Types:
-            #canvas-holder(style='width:30%')
-                canvas#chart-area-offer-types(width='300', height='300' style="margin-left: 111%;")
-        .container.text-center
-            h3 Real Estate Types:
-            #canvas-holder(style='width:30%')
-                canvas#chart-area-real-estate-types(width='300', height='300' style="margin-left: 111%;")
-        .container.text-center
-            h3 Construction Types:
-            #canvas-holder(style='width:30%')
-                canvas#chart-area-construction-types(width='300', height='300' style="margin-left: 111%;")
+        .jumbotron.text-center(style="color: #009688")
+            h1 Imotikar
+            h3
+                em Your Concern Is Our Priority
+
+        .jumbotron
+            h2.text-center
+                strong Latest For Sale
+            .container
+            .row
+                each re in data.forSale
+                    .col-md-3.col-sm-6
+                        div(style="width: 250px; height: 350px")
+                            img.real-estate-image.img-thumbnail.center-block(src=re.image)
+                            br
+                            .text-center
+                                a(href='realestates/details/#{re.title}/#{re._id}')= re.title
+                                br
+                                span.glyphicon.glyphicon-map-marker
+                                span  #{re.location}
+                                br
+                                span.glyphicon.glyphicon-euro
+                                span  #{re.price}
+
+        .jumbotron
+            h2.text-center
+                strong Latest For Rent
+            .row
+                each re in data.forRent
+                    .col-md-3.col-sm-6
+                        div(style="width: 250px; height: 350px")
+                            img.real-estate-image.img-thumbnail.center-block(src=re.image)
+                            br
+                            .text-center
+                                a(href='realestates/details/#{re.title}/#{re._id}')= re.title
+                                br
+                                span.glyphicon.glyphicon-map-marker
+                                span  #{re.location}
+                                br
+                                span.glyphicon.glyphicon-euro
+                                span  #{re.price}
+
+        .jumbotron
+            h2.text-center
+                strong STATISTICS
+            .row
+                .col-lg-4.text-center
+                    h3 Offer Types:
+                    #canvas-holder(style='width:30%')
+                        canvas#chart-area-offer-types(width='500', height='500' style="margin-left: 111%;")
+                .col-lg-4.text-center
+                    h3 Real Estate Types:
+                    #canvas-holder(style='width:30%')
+                        canvas#chart-area-real-estate-types(width='500', height='500' style="margin-left: 111%;")
+                .col-lg-4.text-center
+                    h3 Construction Types:
+                    #canvas-holder(style='width:30%')
+                        canvas#chart-area-construction-types(width='500', height='500' style="margin-left: 111%;")

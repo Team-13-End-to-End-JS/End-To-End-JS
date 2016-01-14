@@ -121,29 +121,28 @@
                 data.realEstates.getPublic(req.body)
                     .then(function (dbResponse) {
 
-                        if (dbResponse.length === 0) {
-                            res.render('real-estates/real-estates-browse', {pageData: {
-                                common: pageData
-                            }});
-                        } else {
-                            res.render('real-estates/real-estates-browse', {pageData: {
-                                common: pageData,
-                                realEstates: dbResponse}});
-                        }
+                        res.render('real-estates/real-estates-browse', {pageData: {
+                            common: pageData,
+                            realEstates: dbResponse}});
                     });
                 }
             );
     }
 
-    function getAll(req, res) {
+    function getTop(req, res, next) {
+        data.realEstates.getTop()
+            .then(function (realEstates) {
+                let data = {data: realEstates};
 
+                res.render('index', data);
+            })
     }
 
     module.exports = {
         getCreate: getCreate,
         create: create,
         getDetails: getDetails,
-        getAll: getAll,
+        getTop: getTop,
         getPublic: getPublic,
         postPublic: postPublic
     }
