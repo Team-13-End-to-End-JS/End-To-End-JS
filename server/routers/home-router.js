@@ -3,7 +3,7 @@
 
     let router = require('express').Router(),
         auth = require('../config/auth'),
-        controllers = require('../controllers/index');
+        controllers = require('../controllers/index')('../data/data');
 
     router.get('/partials/:partialArea/:partialName', function(req, res) {
             res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)

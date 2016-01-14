@@ -3,7 +3,7 @@
 
     let router = require('express').Router(),
         auth = require('../config/auth'),
-        controllers = require('../controllers/index'),
+        controllers = require('../controllers/index')(require('../data/data')),
         multer = require('multer'),
         uuid = require('uuid');
 

@@ -6,26 +6,51 @@
         assert = require('assert'),
         expect = chai.expect;
 
-    let controllers = require('../server/controllers/index.js');
-    let adminController = controller.admin;
-    let usersController = controller.users;
-    let realEstateController = controller.realEstate;
+    let data = {
+        users: {
+            create: function(user) {
+                let promise = new Promise(function(resolve, reject) {
+                    resolve(user);
+                });
 
-    let testUser = {_id: ObjectId("2131dsaf231254j6542dksadnkank23"),
+                return promise;
+            }
+        },
+        locations: {
+            remove: function(id) {
+                let promise = new Promise(function(resolve, reject) {
+                    if(id == 1 || id == 0) {
+                        resolve(id);
+                    } else {
+                        return reject('invalid removal');
+                    }
+                });
+
+                return promise;
+            }
+        }
+    };
+
+    let usersController = require('../server/controllers/users-controller.js')(data);
+
+    let adminController = require('../server/controllers/admin-controller.js')(data);
+
+    // let realEstateController = controller.realEstate;
+
+    let testUser = {_id: "2131dsaf231254j6542dksadnkank23",
         username: "TestUser",
         firstName: "TestFName",
         lastName: "TestLName",
         phoneNumber: "088888888",
         roles: ["admin", "regular"]};
 
-    let testRegUser = {_id: ObjectId("14kdskml9800iokre"),
+    let testRegUser = {_id:"14kdskml9800iokre",
         username: "TestRegularUser",
         firstName: "TestFName",
         lastName: "TestLName",
         phoneNumber: "088888888",
         roles: ["regular"]};
 
-    // thanks to KonstantinSimeonov
     function hasStatusCode(code) {
         return function (statusCode) {
             expect(statusCode).to.equal(code);
@@ -34,7 +59,7 @@
     }
 
     describe('Users Controller', function() {
-       describe('GET /login', function() {
+        describe('GET /login', function() {
             it('should render login form when user is not logged in', function() {
                 let req = {};
                 let res = { render: sinon.spy() };
@@ -44,16 +69,16 @@
 
                 expect(spy.calledOnce).to.equal(true);
             });
-       });
+        });
 
         describe('GET /login', function() {
             it('should redirect to / when user is logged in', function() {
                 let req = { user: testUser };
                 let res = {
-                    render: sinon.spy(),
-                    status: hasStatusCode(302)
+                    status: hasStatusCode(302),
+                    redirect: sinon.spy()
                 };
-                let spy = res.render;
+                let spy = res.redirect;
 
                 usersController.getLogin(req, res);
 
@@ -62,18 +87,84 @@
         });
 
         describe('GET /register', function() {
-            it('should redirect to /when user is logged in', function() {
+            it('should redirect to / when user is logged in', function() {
                 let req = { user: testUser };
                 let res = {
-                    render: sinon.spy(),
-                    status: hasStatusCode(302)
+                    status: hasStatusCode(302),
+                    redirect: sinon.spy()
                 };
-                let spy = res.render;
+                let spy = res.redirect;
 
-                usersController.getLogin(req, res);
+                usersController.getRegister(req, res);
 
                 expect(spy.calledOnce).to.equal(true);
             });
         });
+
+        describe('POST /register', function() {
+            it('should register correctly and redirect to /login when successful', function() {
+                let req = {
+                    body: testRegUser
+                };
+
+                let res = {
+                    redirect: function(path) {
+                        expect(path).to.equal('/login');
+                    },
+                    session: {
+                        error: ""
+                    }
+                };
+
+                usersController.register(req, res);
+            });
+        });
+    });
+
+    describe('Admin Controller /admin/', function() {
+        describe('POST /content/locations/:location', function() {
+            it('should properly remove location and THEN redirect to /admin/content', function() {
+                let req = {
+                    params: {
+                        location: 0
+                    }
+                };
+
+                let res = {
+                    redirect: function(path) {
+                        expect(path).to.equal('/admin/content');
+                    }
+                };
+
+                adminController.removeLocationContentControl(req, res);
+            });
+        });
+
+        describe('POST /content/locations/:location',  function() {
+            it('should return error and correct status when removal is invalid', function() {
+                let req = {
+                    params: {
+                        locations: 25
+                    }
+                };
+
+                let res = {
+                    status: hasStatusCode(403),
+                    session: {
+                        error: ''
+                    }
+                };
+
+                Object.defineProperty(res.session, 'error', { set: function (err) { expect(err).to.equal('invalid removal');} });
+
+                adminController.removeLocationContentControl(req, res);
+            });
+        });
+
+        describe('PUT /pending/:id', function() {
+            it('should update a post correctly to isApproved', function() {
+               expect('').to.equal('Pesho');
+            });
+        })
     });
 }());
